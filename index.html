@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Eternal Darkness Spells</title>
+        <style>
+            :root {
+                --background-color: White;
+                --color: Black;
+                --chatturgha-color: Maroon;
+                --ulyaoth-color: MediumBlue;
+                --xellotath-color: DarkGreen;
+                --mantorok-color: DarkMagenta;
+                --unaligned-color: SaddleBrown;
+                --incompatible-color: Silver;
+            }
+            @media (prefers-color-scheme: dark) {
+                :root {
+                    --background-color: Black;
+                    --color: White;
+                    --chatturgha-color: Tomato;
+                    --ulyaoth-color: DeepSkyBlue;
+                    --xellotath-color: SpringGreen;
+                    --mantorok-color: Violet;
+                    --unaligned-color: Khaki;
+                    --incompatible-color: DimGray;
+                }
+            }
+            body {
+                background-color: var(--background-color);
+                color: var(--color);
+                padding: 1rem;
+            }
+            table, .rune {
+                border: 1px solid var(--color);
+            }
+            td {
+                padding: 1rem;
+            }
+            .rune {
+                cursor: pointer;
+            }
+            #chatturgha, .chatturgha .rune.selected { color: var(--chatturgha-color); }
+            #ulyaoth, .ulyaoth .rune.selected { color: var(--ulyaoth-color); }
+            #xellotath, .xellotath .rune.selected { color: var(--xellotath-color); }
+            #mantorok, .mantorok .rune.selected { color: var(--mantorok-color); }
+            .unaligned .rune.selected { color: var(--unaligned-color); }
+            .rune.inactive { color: var(--incompatible-color) !important; }
+        </style>
+    </head>
+    <body>
+        <h1>Eternal Darkness Spells</h1>
+        <table class="unaligned" id="spellTable">
+            <tr>
+                <th>Alignment</th>
+                <th>Verb</th>
+                <th>Noun</th>
+                <th>Spell</th>
+            </tr>
+            <tr>
+                <td class="rune" id="chatturgha" data-type="alignment">Chattur'gha (Claw)</td>
+                <td class="rune" id="bankorok" data-type="verb">Bankorok (Protect)</td>
+                <td class="rune" id="magormor" data-type="noun">Magormor (Item)</td>
+                <td class="rune" id="enchant" data-type="spell">Enchant Item</td>
+            </tr>
+            <tr>
+                <td class="rune" id="ulyaoth" data-type="alignment">Ulyaoth (Veil)</td>
+                <td class="rune" id="tier" data-type="verb">Tier (Protect)</td>
+                <td class="rune" id="redgormor" data-type="noun">Redgormor (Area)</td>
+                <td class="rune" id="recover" data-type="spell">Recover</td>
+            </tr>
+            <tr>
+                <td class="rune" id="xellotath" data-type="alignment">Xel'lotath (Sigil)</td>
+                <td class="rune" id="narokath" data-type="verb">Narokath (Absorb)</td>
+                <td class="rune" id="aretak" data-type="noun">Aretak (Creature)</td>
+                <td class="rune" id="reveal" data-type="spell">Reveal Invisible</td>
+            </tr>
+            <tr>
+                <td class="rune" id="mantorok" data-type="alignment">Mantorok (Black Heart)</td>
+                <td class="rune" id="nethlek" data-type="verb">Nethlek (Dispel)</td>
+                <td class="rune" id="santak" data-type="noun">Santak (Self)</td>
+                <td class="rune" id="field" data-type="spell">Damage Field</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="rune" id="antorbok" data-type="verb">Antorbok (Project)</td>
+                <td class="rune" id="pargon" data-type="noun">Pargon (Power)</td>
+                <td class="rune" id="dispel" data-type="spell">Dispel Magick</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="rune" id="summon" data-type="spell">Summon Creature</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="rune" id="shield" data-type="spell">Shield</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="rune" id="attack" data-type="spell">Magickal Attack</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="rune" id="pool" data-type="spell">Magick Pool</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="rune" id="bind" data-type="spell">Bind</td>
+            </tr>
+        </table>
+        <script>
+            const spells = {
+                'enchant': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'antorbok', 'magormor', 'pargon'],
+                'recover': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'narokath', 'santak', 'pargon'],
+                'reveal': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'narokath', 'redgormor', 'pargon'],
+                'field': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'bankorok', 'redgormor', 'pargon'],
+                'dispel': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'nethlek', 'redgormor', 'pargon'],
+                'summon': ['chatturgha', 'ulyaoth', 'xellotath', 'tier', 'aretak', 'pargon'],
+                'shield': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'bankorok', 'santak', 'pargon'],
+                'attack': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'antorbok', 'redgormor', 'pargon'],
+                'pool': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'tier', 'redgormor', 'pargon'],
+                'bind': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'bankorok', 'aretak', 'pargon']
+            }
+            const runes = document.getElementsByClassName('rune');
+            Array.from(runes).forEach(rune => {
+                rune.addEventListener('click', function(e) {
+                    console.log(e.target.id);
+                    /* don't disable or enable anything as pargon is compatible with all other nouns */
+                    if (e.target.id === 'pargon') {
+                        e.target.classList.toggle('selected');
+                    }
+                    /* disable all runes of same type */
+                    else if (e.target.classList.toggle('selected')) {
+                        e.target.classList.remove('inactive');
+                        Array.from(runes).forEach(rune => {
+                            if (rune.dataset.type === e.target.dataset.type && !rune.isSameNode(e.target) && rune.id !== 'pargon') { /* pargon is always enabled */
+                                rune.className = 'rune inactive';
+                            }
+                        });
+                        if (e.target.dataset.type === 'alignment') {
+                            document.getElementById('spellTable').className = e.target.id;
+                        }
+                    }
+                    /* enable all runes of same type */
+                    else {
+                        Array.from(runes).forEach(rune => {
+                            if (rune.dataset.type === e.target.dataset.type && !rune.isSameNode(e.target)) {
+                                rune.className = 'rune';
+                            }
+                        });          
+                        if (e.target.dataset.type === 'alignment') {
+                            document.getElementById('spellTable').className = 'unaligned';
+                        }
+                    }
+                })
+            });
+        </script>
+    </body>
+</html>
