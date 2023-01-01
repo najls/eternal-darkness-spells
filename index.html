@@ -64,7 +64,7 @@
             </tr>
             <tr>
                 <td class="rune" id="ulyaoth" data-type="alignment">Ulyaoth (Veil)</td>
-                <td class="rune" id="tier" data-type="verb">Tier (Protect)</td>
+                <td class="rune" id="tier" data-type="verb">Tier (Summon)</td>
                 <td class="rune" id="redgormor" data-type="noun">Redgormor (Area)</td>
                 <td class="rune" id="recover" data-type="spell">Recover</td>
             </tr>
@@ -118,51 +118,154 @@
             </tr>
         </table>
         <script>
-            const spells = {
-                'enchant': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'antorbok', 'magormor', 'pargon'],
-                'recover': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'narokath', 'santak', 'pargon'],
-                'reveal': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'narokath', 'redgormor', 'pargon'],
-                'field': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'bankorok', 'redgormor', 'pargon'],
-                'dispel': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'nethlek', 'redgormor', 'pargon'],
-                'summon': ['chatturgha', 'ulyaoth', 'xellotath', 'tier', 'aretak', 'pargon'],
-                'shield': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'bankorok', 'santak', 'pargon'],
-                'attack': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'antorbok', 'redgormor', 'pargon'],
-                'pool': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'tier', 'redgormor', 'pargon'],
-                'bind': ['chatturgha', 'ulyaoth', 'xellotath', 'mantorok', 'bankorok', 'aretak', 'pargon']
-            }
+            const spellDict = {
+                'enchant': ['antorbok', 'magormor'],
+                'recover': ['narokath', 'santak'],
+                'reveal': ['narokath', 'redgormor'],
+                'field': ['bankorok', 'redgormor'],
+                'dispel': ['nethlek', 'redgormor'],
+                'summon': ['tier', 'aretak'],
+                'shield': ['bankorok', 'santak'],
+                'attack': ['antorbok', 'redgormor'],
+                'pool': ['tier', 'redgormor'],
+                'bind': ['bankorok', 'aretak']
+            };
+            const spellMatrix = [
+                ['enchant', 'antorbok', 'magormor', 'pargon', 'chatturgha'],
+                ['recover', 'narokath', 'santak', 'pargon', 'chatturgha'],
+                ['reveal', 'narokath', 'redgormor', 'pargon', 'chatturgha'],
+                ['field', 'bankorok', 'redgormor', 'pargon', 'chatturgha'],
+                ['dispel', 'nethlek', 'redgormor', 'pargon', 'chatturgha'],
+                ['summon', 'tier', 'aretak', 'pargon', 'chatturgha'],
+                ['shield', 'bankorok', 'santak', 'pargon', 'chatturgha'],
+                ['attack', 'antorbok', 'redgormor', 'pargon', 'chatturgha'],
+                ['pool', 'tier', 'redgormor', 'pargon', 'chatturgha'],
+                ['bind', 'bankorok', 'aretak', 'pargon', 'chatturgha'],
+                ['enchant', 'antorbok', 'magormor', 'pargon', 'ulyaoth'],
+                ['recover', 'narokath', 'santak', 'pargon', 'ulyaoth'],
+                ['reveal', 'narokath', 'redgormor', 'pargon', 'ulyaoth'],
+                ['field', 'bankorok', 'redgormor', 'pargon', 'ulyaoth'],
+                ['dispel', 'nethlek', 'redgormor', 'pargon', 'ulyaoth'],
+                ['summon', 'tier', 'aretak', 'pargon', 'ulyaoth'],
+                ['shield', 'bankorok', 'santak', 'pargon', 'ulyaoth'],
+                ['attack', 'antorbok', 'redgormor', 'pargon', 'ulyaoth'],
+                ['pool', 'tier', 'redgormor', 'pargon', 'ulyaoth'],
+                ['bind', 'bankorok', 'aretak', 'pargon', 'ulyaoth'],
+                ['enchant', 'antorbok', 'magormor', 'pargon', 'xellotath'],
+                ['recover', 'narokath', 'santak', 'pargon', 'xellotath'],
+                ['reveal', 'narokath', 'redgormor', 'pargon', 'xellotath'],
+                ['field', 'bankorok', 'redgormor', 'pargon', 'xellotath'],
+                ['dispel', 'nethlek', 'redgormor', 'pargon', 'xellotath'],
+                ['summon', 'tier', 'aretak', 'pargon', 'xellotath'],
+                ['shield', 'bankorok', 'santak', 'pargon', 'xellotath'],
+                ['attack', 'antorbok', 'redgormor', 'pargon', 'xellotath'],
+                ['pool', 'tier', 'redgormor', 'pargon', 'xellotath'],
+                ['bind', 'bankorok', 'aretak', 'pargon', 'xellotath'],
+                ['enchant', 'antorbok', 'magormor', 'pargon', 'mantorok'],
+                ['recover', 'narokath', 'santak', 'pargon', 'mantorok'],
+                ['reveal', 'narokath', 'redgormor', 'pargon', 'mantorok'],
+                ['field', 'bankorok', 'redgormor', 'pargon', 'mantorok'],
+                ['dispel', 'nethlek', 'redgormor', 'pargon', 'mantorok'],
+                ['shield', 'bankorok', 'santak', 'pargon', 'mantorok'],
+                ['attack', 'antorbok', 'redgormor', 'pargon', 'mantorok'],
+                ['pool', 'tier', 'redgormor', 'pargon', 'mantorok'],
+                ['bind', 'bankorok', 'aretak', 'pargon', 'mantorok']
+            ];
             const runes = document.getElementsByClassName('rune');
             Array.from(runes).forEach(rune => {
                 rune.addEventListener('click', function(e) {
-                    console.log(e.target.id);
                     /* don't disable or enable anything as pargon is compatible with all other nouns */
                     if (e.target.id === 'pargon') {
                         e.target.classList.toggle('selected');
                     }
-                    /* disable all runes of same type */
                     else if (e.target.classList.toggle('selected')) {
-                        e.target.classList.remove('inactive');
+                        /* remove selected from any other runes of same type */
                         Array.from(runes).forEach(rune => {
                             if (rune.dataset.type === e.target.dataset.type && !rune.isSameNode(e.target) && rune.id !== 'pargon') { /* pargon is always enabled */
-                                rune.className = 'rune inactive';
+                                rune.classList.remove('selected');
                             }
                         });
+                        /* set alignment on table for color coding */
                         if (e.target.dataset.type === 'alignment') {
                             document.getElementById('spellTable').className = e.target.id;
                         }
-                    }
-                    /* enable all runes of same type */
-                    else {
-                        Array.from(runes).forEach(rune => {
-                            if (rune.dataset.type === e.target.dataset.type && !rune.isSameNode(e.target)) {
-                                rune.className = 'rune';
+                        /* if a spell is selected also select corresponding runes */
+                        else if (e.target.dataset.type === 'spell') {
+                            Array.from(document.getElementsByClassName('selected')).forEach(rune => {
+                                if (!rune.isSameNode(e.target) && rune.dataset.type !== 'alignment' && rune.id !== 'pargon') { /* pargon can always be selected */
+                                    rune.classList.remove('selected');
+                                }
+                            });
+                            let verb = document.getElementById(spellDict[e.target.id][0]);
+                            let noun = document.getElementById(spellDict[e.target.id][1]);
+                            verb.classList.add('selected');
+                            noun.classList.add('selected');
+                            /* special mantorok case */
+                            if (document.getElementById('spellTable').className === 'mantorok' && e.target.id === 'summon') {
+                                document.getElementById('spellTable').className = 'unaligned';
                             }
-                        });          
+                        }
+                    }
+                    else {
+                        /* reset alignment color coding */
                         if (e.target.dataset.type === 'alignment') {
                             document.getElementById('spellTable').className = 'unaligned';
                         }
+                        else if (e.target.dataset.type === 'spell') {
+                            Array.from(runes).forEach(rune => {
+                                if (rune.dataset.type !== 'alignment') {
+                                    rune.classList.remove('inactive', 'selected');
+                                }
+                            });
+                        }
                     }
-                })
+                    determineSpell();
+                    toggleInactive(document.getElementById('spellTable').className !== 'unaligned');
+                });
             });
+
+            function toggleInactive(aligned) {
+                let selectedRunes = [];
+                Array.from(document.getElementsByClassName('selected')).forEach(rune => {
+                    selectedRunes.push(rune.id);
+                });
+                let possibleSpells = [];
+                let activeRunes = [];
+                spellMatrix.forEach(spell => {
+                    if (selectedRunes.every(rune => spell.includes(rune))) {
+                        possibleSpells.push(spell);
+                    }
+                });
+                activeRunes = union(...possibleSpells);
+                Array.from(runes).forEach(rune => {
+                    rune.classList.remove('inactive');
+                    if ((!activeRunes.includes(rune.id) || (aligned && rune.dataset.type === 'alignment')) && !rune.classList.contains('selected')) { /* special case for alignment they are common to all spells */
+                        rune.classList.add('inactive');
+                    }
+                });
+            }
+
+            function determineSpell() {
+                Array.from(document.querySelectorAll("[data-type='spell']")).forEach(spell => {
+                    spell.classList.remove('selected');
+                });
+                verb = document.querySelector("[data-type='verb'].selected");
+                noun = document.querySelector("[data-type='noun'].selected"); /* this is ok as pargon comes after all other nouns */
+                if (verb && noun && noun.id !== 'pargon') { /* ignore pargon since it has no semantical meaning */
+                    for (let [key, value] of Object.entries(spellDict)) {
+                        if ([verb.id, noun.id].every(rune => value.includes(rune))) {
+                            if (!(document.getElementById('spellTable').className === 'mantorok' && key === 'summon')) { /* special mantorok case */
+                                document.getElementById(key).classList.add('selected');
+                            }
+                        }
+                    }
+                }
+            }
+
+            function union() {
+                let flat = [].concat(...arguments);
+                return [...new Set(flat)];
+            }
         </script>
     </body>
 </html>
