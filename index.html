@@ -6,17 +6,29 @@
             :root {
                 --background-color: White;
                 --color: Black;
-                --chatturgha-color: Maroon;
-                --ulyaoth-color: MediumBlue;
-                --xellotath-color: DarkGreen;
-                --mantorok-color: DarkMagenta;
-                --unaligned-color: SaddleBrown;
+                --chatturgha-background-color: LightCoral;
+                --ulyaoth-background-color: DeepSkyBlue;
+                --xellotath-background-color: SpringGreen;
+                --mantorok-background-color: Violet;
+                --unaligned-background-color: Khaki;
+                --inactive-background-color: white;
+                --chatturgha-color: black;
+                --ulyaoth-color: black;
+                --xellotath-color: black;
+                --mantorok-color: black;
+                --unaligned-color: black;
                 --inactive-color: Silver;
             }
             @media (prefers-color-scheme: dark) {
                 :root {
                     --background-color: Black;
                     --color: White;
+                    --chatturgha-background-color: black;
+                    --ulyaoth-background-color: black;
+                    --xellotath-background-color: black;
+                    --mantorok-background-color: black;
+                    --unaligned-background-color: black;
+                    --inactive-background-color: black;
                     --chatturgha-color: Tomato;
                     --ulyaoth-color: DeepSkyBlue;
                     --xellotath-color: SpringGreen;
@@ -34,17 +46,46 @@
             .translation { display: none; }
             .translation.show { display: inline; }
             .translation::before { content: '\00a0'; }
-            #chatturgha, .chatturgha .table-cell.selected { color: var(--chatturgha-color); }
-            #ulyaoth, .ulyaoth .table-cell.selected { color: var(--ulyaoth-color); }
-            #xellotath, .xellotath .table-cell.selected { color: var(--xellotath-color); }
-            #mantorok, .mantorok .table-cell.selected { color: var(--mantorok-color); }
-            .unaligned .table-cell.selected { color: var(--unaligned-color); }
-            .chatturgha .table-cell.selected { border-color: var(--chatturgha-color); }
-            .ulyaoth .table-cell.selected { border-color: var(--ulyaoth-color); }
-            .xellotath .table-cell.selected { border-color: var(--xellotath-color); }
-            .mantorok .table-cell.selected { border-color: var(--mantorok-color); }
-            .unaligned .table-cell.selected { border-color: var(--unaligned-color); }
-            .table-cell.inactive { color: var(--inactive-color) !important; }
+            #chatturgha, .chatturgha .table-cell.selected {
+                color: var(--chatturgha-color);
+            }
+            #ulyaoth, .ulyaoth .table-cell.selected {
+                color: var(--ulyaoth-color);
+            }
+            #xellotath, .xellotath .table-cell.selected {
+                color: var(--xellotath-color);
+            }
+            #mantorok, .mantorok .table-cell.selected {
+                color: var(--mantorok-color);
+            }
+            .unaligned .table-cell.selected {
+                color: var(--unaligned-color);
+            }
+            .chatturgha .table-cell.selected {
+                background-color: var(--chatturgha-background-color);
+                border-color: var(--chatturgha-color);
+            }
+            .ulyaoth .table-cell.selected {
+                background-color: var(--ulyaoth-background-color);
+                border-color: var(--ulyaoth-color);
+            }
+            .xellotath .table-cell.selected {
+                background-color: var(--xellotath-background-color);
+                border-color: var(--xellotath-color);
+            }
+            .mantorok .table-cell.selected {
+                background-color: var(--mantorok-background-color);
+                border-color: var(--mantorok-color);
+            }
+            .unaligned .table-cell.selected {
+                background-color: var(--unaligned-background-color);
+                border-color: var(--unaligned-color);
+            }
+            .table-cell.inactive {
+                background-color: var(--inactive-background-color);
+                border-color: var(--inactive-color);
+                color: var(--inactive-color);
+            }
             .table, .table-cell { border: 1px solid var(--color); }
             .table-group {
                 display: grid;
