@@ -37,30 +37,27 @@
                     --inactive-color: DimGray;
                 }
             }
-            body {
+            body, button {
                 background-color: var(--background-color);
                 color: var(--color);
-                padding: 1rem;
+                padding: .5rem;
             }
-            button { margin: .5rem 0; }
+            button, .rune, .spell { cursor: pointer; }
+            button, .table, .table-cell { border: 1px solid var(--color); }
+            .buttons {
+                display: grid;
+                gap: .125rem;
+                grid-template-columns: 1fr 1fr;
+                margin: 1rem 0;
+            }
             .translation { display: none; }
             .translation.show { display: inline; }
             .translation::before { content: '\00a0'; }
-            #chatturgha, .chatturgha .table-cell.selected {
-                color: var(--chatturgha-color);
-            }
-            #ulyaoth, .ulyaoth .table-cell.selected {
-                color: var(--ulyaoth-color);
-            }
-            #xellotath, .xellotath .table-cell.selected {
-                color: var(--xellotath-color);
-            }
-            #mantorok, .mantorok .table-cell.selected {
-                color: var(--mantorok-color);
-            }
-            .unaligned .table-cell.selected {
-                color: var(--unaligned-color);
-            }
+            #chatturgha, .chatturgha .table-cell.selected { color: var(--chatturgha-color); }
+            #ulyaoth, .ulyaoth .table-cell.selected { color: var(--ulyaoth-color); }
+            #xellotath, .xellotath .table-cell.selected { color: var(--xellotath-color); }
+            #mantorok, .mantorok .table-cell.selected { color: var(--mantorok-color); }
+            .unaligned .table-cell.selected { color: var(--unaligned-color); }
             .chatturgha .table-cell.selected {
                 background-color: var(--chatturgha-background-color);
                 border-color: var(--chatturgha-color);
@@ -86,7 +83,6 @@
                 border-color: var(--inactive-color);
                 color: var(--inactive-color);
             }
-            .table, .table-cell { border: 1px solid var(--color); }
             .table-group {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
@@ -100,7 +96,6 @@
                 justify-content: center;
             }
             .heading { grid-column: 1/-1; }
-            .rune, .spell { cursor: pointer; }
             @media (min-width: 666px) {
                 .table { display: flex; }
                 .table-group {
@@ -115,8 +110,10 @@
     </head>
     <body>
         <h1>Runes and Spells</h1>
-        <button id="translate">Show translations</button>
-        <button id="reset">Reset</button>
+        <div class="buttons">
+            <button id="translate">Show translations</button>
+            <button id="reset">Reset</button>
+        </div>
         <div class="unaligned" id="alignment">
             <div class="table">
                 <div class="table-group alignments">
