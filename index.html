@@ -11,7 +11,7 @@
                 --xellotath-color: DarkGreen;
                 --mantorok-color: DarkMagenta;
                 --unaligned-color: SaddleBrown;
-                --incompatible-color: Silver;
+                --inactive-color: Silver;
             }
             @media (prefers-color-scheme: dark) {
                 :root {
@@ -22,7 +22,7 @@
                     --xellotath-color: SpringGreen;
                     --mantorok-color: Violet;
                     --unaligned-color: Khaki;
-                    --incompatible-color: DimGray;
+                    --inactive-color: DimGray;
                 }
             }
             body {
@@ -30,95 +30,89 @@
                 color: var(--color);
                 padding: 1rem;
             }
-            table, .rune {
-                border: 1px solid var(--color);
+            button { margin: .5rem 0; }
+            .translation { display: none; }
+            .translation.show { display: inline; }
+            .translation::before { content: '\00a0'; }
+            #chatturgha, .chatturgha .table-data.selected { color: var(--chatturgha-color); }
+            #ulyaoth, .ulyaoth .table-data.selected { color: var(--ulyaoth-color); }
+            #xellotath, .xellotath .table-data.selected { color: var(--xellotath-color); }
+            #mantorok, .mantorok .table-data.selected { color: var(--mantorok-color); }
+            .unaligned .table-data.selected { color: var(--unaligned-color); }
+            .table-data.inactive { color: var(--inactive-color) !important; }
+            .table, .table-cell { border: 1px solid var(--color); }
+            .table-group {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
             }
-            td {
-                padding: 1rem;
+            .table-cell {
+                margin: .063rem;
+                padding: .5rem;
+                display: flex;
+                flex-wrap: wrap;
+                align-content: center;
+                justify-content: center;
             }
-            .rune {
-                cursor: pointer;
+            .table-heading { grid-column: 1/-1; }
+            .table-data { cursor: pointer; }
+            @media (min-width: 666px) {
+                .table { display: flex; }
+                .table-group {
+                    grid-template-columns: 1fr;
+                    flex: 1;
+                }
+                .table-group.alignment { grid-template-rows: auto repeat(4, 1fr); }
+                .table-group.verb, .table-group.noun { grid-template-rows: auto repeat(5, 1fr); }
+                .table-group.spell { grid-template-rows: auto repeat(10, 1fr); }
             }
-            #chatturgha, .chatturgha .rune.selected { color: var(--chatturgha-color); }
-            #ulyaoth, .ulyaoth .rune.selected { color: var(--ulyaoth-color); }
-            #xellotath, .xellotath .rune.selected { color: var(--xellotath-color); }
-            #mantorok, .mantorok .rune.selected { color: var(--mantorok-color); }
-            .unaligned .rune.selected { color: var(--unaligned-color); }
-            .rune.inactive { color: var(--incompatible-color) !important; }
         </style>
     </head>
     <body>
-        <h1>Eternal Darkness Spells</h1>
-        <table class="unaligned" id="spellTable">
-            <tr>
-                <th>Alignment</th>
-                <th>Verb</th>
-                <th>Noun</th>
-                <th>Spell</th>
-            </tr>
-            <tr>
-                <td class="rune" id="chatturgha" data-type="alignment">Chattur'gha (Claw)</td>
-                <td class="rune" id="bankorok" data-type="verb">Bankorok (Protect)</td>
-                <td class="rune" id="magormor" data-type="noun">Magormor (Item)</td>
-                <td class="rune" id="enchant" data-type="spell">Enchant Item</td>
-            </tr>
-            <tr>
-                <td class="rune" id="ulyaoth" data-type="alignment">Ulyaoth (Veil)</td>
-                <td class="rune" id="tier" data-type="verb">Tier (Summon)</td>
-                <td class="rune" id="redgormor" data-type="noun">Redgormor (Area)</td>
-                <td class="rune" id="recover" data-type="spell">Recover</td>
-            </tr>
-            <tr>
-                <td class="rune" id="xellotath" data-type="alignment">Xel'lotath (Sigil)</td>
-                <td class="rune" id="narokath" data-type="verb">Narokath (Absorb)</td>
-                <td class="rune" id="aretak" data-type="noun">Aretak (Creature)</td>
-                <td class="rune" id="reveal" data-type="spell">Reveal Invisible</td>
-            </tr>
-            <tr>
-                <td class="rune" id="mantorok" data-type="alignment">Mantorok (Black Heart)</td>
-                <td class="rune" id="nethlek" data-type="verb">Nethlek (Dispel)</td>
-                <td class="rune" id="santak" data-type="noun">Santak (Self)</td>
-                <td class="rune" id="field" data-type="spell">Damage Field</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td class="rune" id="antorbok" data-type="verb">Antorbok (Project)</td>
-                <td class="rune" id="pargon" data-type="noun">Pargon (Power)</td>
-                <td class="rune" id="dispel" data-type="spell">Dispel Magick</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="rune" id="summon" data-type="spell">Summon Creature</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="rune" id="shield" data-type="spell">Shield</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="rune" id="attack" data-type="spell">Magickal Attack</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="rune" id="pool" data-type="spell">Magick Pool</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="rune" id="bind" data-type="spell">Bind</td>
-            </tr>
-        </table>
+        <h1>Runes and Spells</h1>
+        <button id="translate">Show translations</button>
+        <button id="reset">Reset</button>
+        <div class="unaligned" id="alignment">
+            <div class="table">
+                <div class="table-group alignment">
+                    <div class="table-cell table-heading">Alignment</div>
+                    <div class="table-cell table-data" id="chatturgha" data-type="alignment">Chattur'gha<span class="translation">(Claw)</span></div>
+                    <div class="table-cell table-data" id="ulyaoth" data-type="alignment">Ulyaoth<span class="translation">(Veil)</span></div>
+                    <div class="table-cell table-data" id="xellotath" data-type="alignment">Xel'lotath<span class="translation">(Sigil)</span></div>
+                    <div class="table-cell table-data" id="mantorok" data-type="alignment">Mantorok<span class="translation">(Black Heart)</span></div>
+                </div>
+                <div class="table-group verb">
+                    <div class="table-cell table-heading">Verb</div>
+                    <div class="table-cell table-data" id="bankorok" data-type="verb">Bankorok<span class="translation">(Protect)</span></div>
+                    <div class="table-cell table-data" id="tier" data-type="verb">Tier<span class="translation">(Summon)</span></div>
+                    <div class="table-cell table-data" id="narokath" data-type="verb">Narokath<span class="translation">(Absorb)</span></div>
+                    <div class="table-cell table-data" id="nethlek" data-type="verb">Nethlek<span class="translation">(Dispel)</span></div>
+                    <div class="table-cell table-data" id="antorbok" data-type="verb">Antorbok<span class="translation">(Project)</span></div>
+                </div>
+                <div class="table-group noun">
+                    <div class="table-cell table-heading">Noun</div>
+                    <div class="table-cell table-data" id="magormor" data-type="noun">Magormor<span class="translation">(Item)</span></div>
+                    <div class="table-cell table-data" id="redgormor" data-type="noun">Redgormor<span class="translation">(Area)</span></div>
+                    <div class="table-cell table-data" id="aretak" data-type="noun">Aretak<span class="translation">(Creature)</span></div>
+                    <div class="table-cell table-data" id="santak" data-type="noun">Santak<span class="translation">(Self)</span></div>
+                    <div class="table-cell table-data" id="pargon" data-type="noun">Pargon<span class="translation">(Power)</span></div>
+                </div>
+                <div class="table-group spell">
+                    <div class="table-cell table-heading">Spell</div>
+                    <div class="table-cell table-data" id="enchant" data-type="spell">Enchant Item</div>
+                    <div class="table-cell table-data" id="recover" data-type="spell">Recover</div>
+                    <div class="table-cell table-data" id="reveal" data-type="spell">Reveal Invisible</div>
+                    <div class="table-cell table-data" id="field" data-type="spell">Damage Field</div>
+                    <div class="table-cell table-data" id="dispel" data-type="spell">Dispel Magick</div>
+                    <div class="table-cell table-data" id="summon" data-type="spell">Summon Creature</div>
+                    <div class="table-cell table-data" id="shield" data-type="spell">Shield</div>
+                    <div class="table-cell table-data" id="attack" data-type="spell">Magickal Attack</div>
+                    <div class="table-cell table-data" id="pool" data-type="spell">Magick Pool</div>
+                    <div class="table-cell table-data" id="bind" data-type="spell">Bind</div>
+                </div>
+            </div>
+        </div>
         <script>
-            const spellDict = {
+            const spellDict = { /* this should be doable with this dictionary only and not the matrix as well */
                 'enchant': ['antorbok', 'magormor'],
                 'recover': ['narokath', 'santak'],
                 'reveal': ['narokath', 'redgormor'],
@@ -171,47 +165,50 @@
                 ['pool', 'tier', 'redgormor', 'pargon', 'mantorok'],
                 ['bind', 'bankorok', 'aretak', 'pargon', 'mantorok']
             ];
-            const runes = document.getElementsByClassName('rune');
+            const runes = document.getElementsByClassName('table-data');
+            const translations = document.getElementsByClassName('translation');
+            document.getElementById('translate').addEventListener('click', toggleTranslations);
+            document.getElementById('reset').addEventListener('click', resetTable);
             Array.from(runes).forEach(rune => {
                 rune.addEventListener('click', function(e) {
                     /* don't disable or enable anything as pargon is compatible with all other nouns */
-                    if (e.target.id === 'pargon') {
-                        e.target.classList.toggle('selected');
+                    if (this.id === 'pargon') {
+                        this.classList.toggle('selected');
                     }
-                    else if (e.target.classList.toggle('selected')) {
+                    else if (this.classList.toggle('selected')) {
                         /* remove selected from any other runes of same type */
                         Array.from(runes).forEach(rune => {
-                            if (rune.dataset.type === e.target.dataset.type && !rune.isSameNode(e.target) && rune.id !== 'pargon') { /* pargon is always enabled */
+                            if (rune.dataset.type === this.dataset.type && !rune.isSameNode(this) && rune.id !== 'pargon') { /* pargon is always enabled */
                                 rune.classList.remove('selected');
                             }
                         });
                         /* set alignment on table for color coding */
-                        if (e.target.dataset.type === 'alignment') {
-                            document.getElementById('spellTable').className = e.target.id;
+                        if (this.dataset.type === 'alignment') {
+                            document.getElementById('alignment').className = this.id;
                         }
                         /* if a spell is selected also select corresponding runes */
-                        else if (e.target.dataset.type === 'spell') {
+                        else if (this.dataset.type === 'spell') {
                             Array.from(document.getElementsByClassName('selected')).forEach(rune => {
-                                if (!rune.isSameNode(e.target) && rune.dataset.type !== 'alignment' && rune.id !== 'pargon') { /* pargon can always be selected */
+                                if (!rune.isSameNode(this) && rune.dataset.type !== 'alignment' && rune.id !== 'pargon') { /* pargon can always be selected */
                                     rune.classList.remove('selected');
                                 }
                             });
-                            let verb = document.getElementById(spellDict[e.target.id][0]);
-                            let noun = document.getElementById(spellDict[e.target.id][1]);
+                            let verb = document.getElementById(spellDict[this.id][0]);
+                            let noun = document.getElementById(spellDict[this.id][1]);
                             verb.classList.add('selected');
                             noun.classList.add('selected');
                             /* special mantorok case */
-                            if (document.getElementById('spellTable').className === 'mantorok' && e.target.id === 'summon') {
-                                document.getElementById('spellTable').className = 'unaligned';
+                            if (document.getElementById('alignment').className === 'mantorok' && this.id === 'summon') {
+                                document.getElementById('alignment').className = 'unaligned'; /* maybe this should reset alignment completely? */
                             }
                         }
                     }
                     else {
                         /* reset alignment color coding */
-                        if (e.target.dataset.type === 'alignment') {
-                            document.getElementById('spellTable').className = 'unaligned';
+                        if (this.dataset.type === 'alignment') {
+                            document.getElementById('alignment').className = 'unaligned';
                         }
-                        else if (e.target.dataset.type === 'spell') {
+                        else if (this.dataset.type === 'spell') {
                             Array.from(runes).forEach(rune => {
                                 if (rune.dataset.type !== 'alignment') {
                                     rune.classList.remove('inactive', 'selected');
@@ -220,7 +217,7 @@
                         }
                     }
                     determineSpell();
-                    toggleInactive(document.getElementById('spellTable').className !== 'unaligned');
+                    toggleInactive(document.getElementById('alignment').className !== 'unaligned');
                 });
             });
 
@@ -254,7 +251,7 @@
                 if (verb && noun && noun.id !== 'pargon') { /* ignore pargon since it has no semantical meaning */
                     for (let [key, value] of Object.entries(spellDict)) {
                         if ([verb.id, noun.id].every(rune => value.includes(rune))) {
-                            if (!(document.getElementById('spellTable').className === 'mantorok' && key === 'summon')) { /* special mantorok case */
+                            if (!(document.getElementById('alignment').className === 'mantorok' && key === 'summon')) { /* special mantorok case */
                                 document.getElementById(key).classList.add('selected');
                             }
                         }
@@ -262,6 +259,21 @@
                 }
             }
 
+            function toggleTranslations() {
+                Array.from(translations).forEach(t => {
+                    t.classList.toggle('show');
+                });
+                this.innerHTML = (this.innerHTML === 'Show translations') ? 'Hide translations' : 'Show translations';
+            }
+            
+            function resetTable(e, resetAlignment = true) {
+                Array.from(runes).forEach(rune => {
+                    if (!(rune.dataset.type === 'alignment' && !resetAlignment)) {
+                        rune.className = 'table-cell table-data';
+                    }
+                });
+            }
+            
             function union() {
                 let flat = [].concat(...arguments);
                 return [...new Set(flat)];
