@@ -60,7 +60,7 @@
             display: grid;
             gap: .125rem;
             grid-template-columns: 1fr 1fr;
-            margin: 1rem 0;
+            margin: .5rem 0;
         }
         .translation { display: none; }
         .translation.show { display: inline; }
@@ -108,6 +108,7 @@
         .heading {
             border: none;
             grid-column: 1/-1;
+            padding: .5vh;
         }
         @media (min-width: 666px) {
             h1 {
@@ -116,6 +117,7 @@
             }
             body, button { font-size: 1rem; }
             body, button, .table-cell { padding: .5rem; }
+            .buttons { margin: 1rem 0; }
             .table { display: flex; }
             .table-group {
                 grid-template-columns: 1fr;
