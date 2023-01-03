@@ -1,310 +1,314 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Eternal Darkness Spells</title>
-        <style>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Eternal Darkness Spells</title>
+
+    <style>
+        :root {
+            --background-color: White;
+            --color: Black;
+            --chatturgha-background-color: LightCoral;
+            --ulyaoth-background-color: DeepSkyBlue;
+            --xellotath-background-color: SpringGreen;
+            --mantorok-background-color: Violet;
+            --unaligned-background-color: Khaki;
+            --inactive-background-color: white;
+            --chatturgha-color: black;
+            --ulyaoth-color: black;
+            --xellotath-color: black;
+            --mantorok-color: black;
+            --unaligned-color: black;
+            --inactive-color: Silver;
+        }
+        @media (prefers-color-scheme: dark) {
             :root {
-                --background-color: White;
-                --color: Black;
-                --chatturgha-background-color: LightCoral;
-                --ulyaoth-background-color: DeepSkyBlue;
-                --xellotath-background-color: SpringGreen;
-                --mantorok-background-color: Violet;
-                --unaligned-background-color: Khaki;
-                --inactive-background-color: white;
-                --chatturgha-color: black;
-                --ulyaoth-color: black;
-                --xellotath-color: black;
-                --mantorok-color: black;
-                --unaligned-color: black;
-                --inactive-color: Silver;
+                --background-color: Black;
+                --color: White;
+                --chatturgha-background-color: black;
+                --ulyaoth-background-color: black;
+                --xellotath-background-color: black;
+                --mantorok-background-color: black;
+                --unaligned-background-color: black;
+                --inactive-background-color: black;
+                --chatturgha-color: Tomato;
+                --ulyaoth-color: DeepSkyBlue;
+                --xellotath-color: SpringGreen;
+                --mantorok-color: Violet;
+                --unaligned-color: Khaki;
+                --inactive-color: DimGray;
             }
-            @media (prefers-color-scheme: dark) {
-                :root {
-                    --background-color: Black;
-                    --color: White;
-                    --chatturgha-background-color: black;
-                    --ulyaoth-background-color: black;
-                    --xellotath-background-color: black;
-                    --mantorok-background-color: black;
-                    --unaligned-background-color: black;
-                    --inactive-background-color: black;
-                    --chatturgha-color: Tomato;
-                    --ulyaoth-color: DeepSkyBlue;
-                    --xellotath-color: SpringGreen;
-                    --mantorok-color: Violet;
-                    --unaligned-color: Khaki;
-                    --inactive-color: DimGray;
-                }
-            }
-            body, button {
-                background-color: var(--background-color);
-                color: var(--color);
-                padding: .5rem;
-            }
-            button, .rune, .spell { cursor: pointer; }
-            button, .table, .table-cell { border: 1px solid var(--color); }
-            .buttons {
-                display: grid;
-                gap: .125rem;
-                grid-template-columns: 1fr 1fr;
-                margin: 1rem 0;
-            }
-            .translation { display: none; }
-            .translation.show { display: inline; }
-            .translation::before { content: '\00a0'; }
-            #chatturgha, .chatturgha .table-cell.selected { color: var(--chatturgha-color); }
-            #ulyaoth, .ulyaoth .table-cell.selected { color: var(--ulyaoth-color); }
-            #xellotath, .xellotath .table-cell.selected { color: var(--xellotath-color); }
-            #mantorok, .mantorok .table-cell.selected { color: var(--mantorok-color); }
-            .unaligned .table-cell.selected { color: var(--unaligned-color); }
-            .chatturgha .table-cell.selected {
-                background-color: var(--chatturgha-background-color);
-                border-color: var(--chatturgha-color);
-            }
-            .ulyaoth .table-cell.selected {
-                background-color: var(--ulyaoth-background-color);
-                border-color: var(--ulyaoth-color);
-            }
-            .xellotath .table-cell.selected {
-                background-color: var(--xellotath-background-color);
-                border-color: var(--xellotath-color);
-            }
-            .mantorok .table-cell.selected {
-                background-color: var(--mantorok-background-color);
-                border-color: var(--mantorok-color);
-            }
-            .unaligned .table-cell.selected {
-                background-color: var(--unaligned-background-color);
-                border-color: var(--unaligned-color);
-            }
-            .table-cell.inactive {
-                background-color: var(--inactive-background-color);
-                border-color: var(--inactive-color);
-                color: var(--inactive-color);
-            }
+        }
+        body, button {
+            background-color: var(--background-color);
+            color: var(--color);
+            padding: .5rem;
+        }
+        button, .rune, .spell { cursor: pointer; }
+        button, .table, .table-cell { border: 1px solid var(--color); }
+        .buttons {
+            display: grid;
+            gap: .125rem;
+            grid-template-columns: 1fr 1fr;
+            margin: 1rem 0;
+        }
+        .translation { display: none; }
+        .translation.show { display: inline; }
+        .translation::before { content: '\00a0'; }
+        #chatturgha, .chatturgha .table-cell.selected { color: var(--chatturgha-color); }
+        #ulyaoth, .ulyaoth .table-cell.selected { color: var(--ulyaoth-color); }
+        #xellotath, .xellotath .table-cell.selected { color: var(--xellotath-color); }
+        #mantorok, .mantorok .table-cell.selected { color: var(--mantorok-color); }
+        .unaligned .table-cell.selected { color: var(--unaligned-color); }
+        .chatturgha .table-cell.selected {
+            background-color: var(--chatturgha-background-color);
+            border-color: var(--chatturgha-color);
+        }
+        .ulyaoth .table-cell.selected {
+            background-color: var(--ulyaoth-background-color);
+            border-color: var(--ulyaoth-color);
+        }
+        .xellotath .table-cell.selected {
+            background-color: var(--xellotath-background-color);
+            border-color: var(--xellotath-color);
+        }
+        .mantorok .table-cell.selected {
+            background-color: var(--mantorok-background-color);
+            border-color: var(--mantorok-color);
+        }
+        .unaligned .table-cell.selected {
+            background-color: var(--unaligned-background-color);
+            border-color: var(--unaligned-color);
+        }
+        .table-cell.inactive {
+            background-color: var(--inactive-background-color);
+            border-color: var(--inactive-color);
+            color: var(--inactive-color);
+        }
+        .table-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .table-cell {
+            margin: .063rem;
+            padding: .5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: center;
+        }
+        .heading {
+            border: none;
+            grid-column: 1/-1;
+        }
+        @media (min-width: 666px) {
+            .table { display: flex; }
             .table-group {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
+                flex: 1;
             }
-            .table-cell {
-                margin: .063rem;
-                padding: .5rem;
-                display: flex;
-                flex-wrap: wrap;
-                align-content: center;
-                justify-content: center;
-            }
-            .heading {
-                border: none;
-                grid-column: 1/-1;
-            }
-            @media (min-width: 666px) {
-                .table { display: flex; }
-                .table-group {
-                    grid-template-columns: 1fr;
-                    flex: 1;
-                }
-                .table-group.alignments { grid-template-rows: auto repeat(4, 1fr); }
-                .table-group.verbs, .table-group.nouns { grid-template-rows: auto repeat(5, 1fr); }
-                .table-group.spells { grid-template-rows: auto repeat(10, 1fr); }
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Runes and Spells</h1>
-        <div class="buttons">
-            <button id="translate">Show translations</button>
-            <button id="reset">Reset</button>
-        </div>
-        <div class="unaligned" id="alignment">
-            <div class="table">
-                <div class="table-group alignments">
-                    <div class="table-cell heading">Alignment</div>
-                    <div class="table-cell rune" id="chatturgha" data-type="alignment">Chattur'gha<span class="translation">(Claw)</span></div>
-                    <div class="table-cell rune" id="ulyaoth" data-type="alignment">Ulyaoth<span class="translation">(Veil)</span></div>
-                    <div class="table-cell rune" id="xellotath" data-type="alignment">Xel'lotath<span class="translation">(Sigil)</span></div>
-                    <div class="table-cell rune" id="mantorok" data-type="alignment">Mantorok<span class="translation">(Black Heart)</span></div>
-                </div>
-                <div class="table-group verbs">
-                    <div class="table-cell heading">Verb</div>
-                    <div class="table-cell rune" id="bankorok" data-type="verb">Bankorok<span class="translation">(Protect)</span></div>
-                    <div class="table-cell rune" id="tier" data-type="verb">Tier<span class="translation">(Summon)</span></div>
-                    <div class="table-cell rune" id="narokath" data-type="verb">Narokath<span class="translation">(Absorb)</span></div>
-                    <div class="table-cell rune" id="nethlek" data-type="verb">Nethlek<span class="translation">(Dispel)</span></div>
-                    <div class="table-cell rune" id="antorbok" data-type="verb">Antorbok<span class="translation">(Project)</span></div>
-                </div>
-                <div class="table-group nouns">
-                    <div class="table-cell heading">Noun</div>
-                    <div class="table-cell rune" id="magormor" data-type="noun">Magormor<span class="translation">(Item)</span></div>
-                    <div class="table-cell rune" id="redgormor" data-type="noun">Redgormor<span class="translation">(Area)</span></div>
-                    <div class="table-cell rune" id="aretak" data-type="noun">Aretak<span class="translation">(Creature)</span></div>
-                    <div class="table-cell rune" id="santak" data-type="noun">Santak<span class="translation">(Self)</span></div>
-                    <div class="table-cell rune" id="pargon" data-type="pargon">Pargon<span class="translation">(Power)</span></div>
-                </div>
-                <div class="table-group spells">
-                    <div class="table-cell heading">Spell</div>
-                    <div class="table-cell spell" id="enchant" data-type="spell">Enchant Item</div>
-                    <div class="table-cell spell" id="recover" data-type="spell">Recover</div>
-                    <div class="table-cell spell" id="reveal" data-type="spell">Reveal Invisible</div>
-                    <div class="table-cell spell" id="field" data-type="spell">Damage Field</div>
-                    <div class="table-cell spell" id="dispel" data-type="spell">Dispel Magick</div>
-                    <div class="table-cell spell" id="summon" data-type="spell">Summon Creature</div>
-                    <div class="table-cell spell" id="shield" data-type="spell">Shield</div>
-                    <div class="table-cell spell" id="attack" data-type="spell">Magickal Attack</div>
-                    <div class="table-cell spell" id="pool" data-type="spell">Magick Pool</div>
-                    <div class="table-cell spell" id="bind" data-type="spell">Bind</div>
-                </div>
+            .table-group.alignments { grid-template-rows: auto repeat(4, 1fr); }
+            .table-group.verbs, .table-group.nouns { grid-template-rows: auto repeat(5, 1fr); }
+            .table-group.spells { grid-template-rows: auto repeat(10, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Runes and Spells</h1>
+    <div class="buttons">
+        <button id="translate">Show translations</button>
+        <button id="reset">Reset</button>
+    </div>
+    <div class="unaligned" id="alignment">
+        <div class="table">
+            <div class="table-group alignments">
+                <div class="table-cell heading">Alignment</div>
+                <div class="table-cell rune" id="chatturgha" data-type="alignment">Chattur'gha<span class="translation">(Claw)</span></div>
+                <div class="table-cell rune" id="ulyaoth" data-type="alignment">Ulyaoth<span class="translation">(Veil)</span></div>
+                <div class="table-cell rune" id="xellotath" data-type="alignment">Xel'lotath<span class="translation">(Sigil)</span></div>
+                <div class="table-cell rune" id="mantorok" data-type="alignment">Mantorok<span class="translation">(Black Heart)</span></div>
+            </div>
+            <div class="table-group verbs">
+                <div class="table-cell heading">Verb</div>
+                <div class="table-cell rune" id="bankorok" data-type="verb">Bankorok<span class="translation">(Protect)</span></div>
+                <div class="table-cell rune" id="tier" data-type="verb">Tier<span class="translation">(Summon)</span></div>
+                <div class="table-cell rune" id="narokath" data-type="verb">Narokath<span class="translation">(Absorb)</span></div>
+                <div class="table-cell rune" id="nethlek" data-type="verb">Nethlek<span class="translation">(Dispel)</span></div>
+                <div class="table-cell rune" id="antorbok" data-type="verb">Antorbok<span class="translation">(Project)</span></div>
+            </div>
+            <div class="table-group nouns">
+                <div class="table-cell heading">Noun</div>
+                <div class="table-cell rune" id="magormor" data-type="noun">Magormor<span class="translation">(Item)</span></div>
+                <div class="table-cell rune" id="redgormor" data-type="noun">Redgormor<span class="translation">(Area)</span></div>
+                <div class="table-cell rune" id="aretak" data-type="noun">Aretak<span class="translation">(Creature)</span></div>
+                <div class="table-cell rune" id="santak" data-type="noun">Santak<span class="translation">(Self)</span></div>
+                <div class="table-cell rune" id="pargon" data-type="pargon">Pargon<span class="translation">(Power)</span></div>
+            </div>
+            <div class="table-group spells">
+                <div class="table-cell heading">Spell</div>
+                <div class="table-cell spell" id="enchant" data-type="spell">Enchant Item</div>
+                <div class="table-cell spell" id="recover" data-type="spell">Recover</div>
+                <div class="table-cell spell" id="reveal" data-type="spell">Reveal Invisible</div>
+                <div class="table-cell spell" id="field" data-type="spell">Damage Field</div>
+                <div class="table-cell spell" id="dispel" data-type="spell">Dispel Magick</div>
+                <div class="table-cell spell" id="summon" data-type="spell">Summon Creature</div>
+                <div class="table-cell spell" id="shield" data-type="spell">Shield</div>
+                <div class="table-cell spell" id="attack" data-type="spell">Magickal Attack</div>
+                <div class="table-cell spell" id="pool" data-type="spell">Magick Pool</div>
+                <div class="table-cell spell" id="bind" data-type="spell">Bind</div>
             </div>
         </div>
-        <script>
-            const spellDict = {
-                'chatturgha enchant': ['chatturgha', 'antorbok', 'magormor', 'pargon'],
-                'chatturgha recover': ['chatturgha', 'narokath', 'santak', 'pargon'],
-                'chatturgha reveal': ['chatturgha', 'narokath', 'redgormor', 'pargon'],
-                'chatturgha field': ['chatturgha', 'bankorok', 'redgormor', 'pargon'],
-                'chatturgha dispel': ['chatturgha', 'nethlek', 'redgormor', 'pargon'],
-                'chatturgha summon': ['chatturgha', 'tier', 'aretak', 'pargon'],
-                'chatturgha shield': ['chatturgha', 'bankorok', 'santak', 'pargon'],
-                'chatturgha attack': ['chatturgha', 'antorbok', 'redgormor', 'pargon'],
-                'chatturgha pool': ['chatturgha', 'tier', 'redgormor', 'pargon'],
-                'chatturgha bind': ['chatturgha', 'bankorok', 'aretak', 'pargon'],
-                'ulyaoth enchant': ['ulyaoth', 'antorbok', 'magormor', 'pargon'],
-                'ulyaoth recover': ['ulyaoth', 'narokath', 'santak', 'pargon'],
-                'ulyaoth reveal': ['ulyaoth', 'narokath', 'redgormor', 'pargon'],
-                'ulyaoth field': ['ulyaoth', 'bankorok', 'redgormor', 'pargon'],
-                'ulyaoth dispel': ['ulyaoth', 'nethlek', 'redgormor', 'pargon'],
-                'ulyaoth summon': ['ulyaoth', 'tier', 'aretak', 'pargon'],
-                'ulyaoth shield': ['ulyaoth', 'bankorok', 'santak', 'pargon'],
-                'ulyaoth attack': ['ulyaoth', 'antorbok', 'redgormor', 'pargon'],
-                'ulyaoth pool': ['ulyaoth', 'tier', 'redgormor', 'pargon'],
-                'ulyaoth bind': ['ulyaoth', 'bankorok', 'aretak', 'pargon'],
-                'xellotath enchant': ['xellotath', 'antorbok', 'magormor', 'pargon'],
-                'xellotath recover': ['xellotath', 'narokath', 'santak', 'pargon'],
-                'xellotath reveal': ['xellotath', 'narokath', 'redgormor', 'pargon'],
-                'xellotath field': ['xellotath', 'bankorok', 'redgormor', 'pargon'],
-                'xellotath dispel': ['xellotath', 'nethlek', 'redgormor', 'pargon'],
-                'xellotath summon': ['xellotath', 'tier', 'aretak', 'pargon'],
-                'xellotath shield': ['xellotath', 'bankorok', 'santak', 'pargon'],
-                'xellotath attack': ['xellotath', 'antorbok', 'redgormor', 'pargon'],
-                'xellotath pool': ['xellotath', 'tier', 'redgormor', 'pargon'],
-                'xellotath bind': ['xellotath', 'bankorok', 'aretak', 'pargon'],
-                'mantorok enchant': ['mantorok', 'antorbok', 'magormor', 'pargon'],
-                'mantorok recover': ['mantorok', 'narokath', 'santak', 'pargon'],
-                'mantorok reveal': ['mantorok', 'narokath', 'redgormor', 'pargon'],
-                'mantorok field': ['mantorok', 'bankorok', 'redgormor', 'pargon'],
-                'mantorok dispel': ['mantorok', 'nethlek', 'redgormor', 'pargon'],
-                'mantorok shield': ['mantorok', 'bankorok', 'santak', 'pargon'],
-                'mantorok attack': ['mantorok', 'antorbok', 'redgormor', 'pargon'],
-                'mantorok pool': ['mantorok', 'tier', 'redgormor', 'pargon'],
-                'mantorok bind': ['mantorok', 'bankorok', 'aretak', 'pargon']
-            };
-            const entities = document.querySelectorAll('.rune, .spell');
-            const translations = document.getElementsByClassName('translation');
+    </div>
+    <script>
+        const spellDict = {
+            'chatturgha enchant': ['chatturgha', 'antorbok', 'magormor', 'pargon'],
+            'chatturgha recover': ['chatturgha', 'narokath', 'santak', 'pargon'],
+            'chatturgha reveal': ['chatturgha', 'narokath', 'redgormor', 'pargon'],
+            'chatturgha field': ['chatturgha', 'bankorok', 'redgormor', 'pargon'],
+            'chatturgha dispel': ['chatturgha', 'nethlek', 'redgormor', 'pargon'],
+            'chatturgha summon': ['chatturgha', 'tier', 'aretak', 'pargon'],
+            'chatturgha shield': ['chatturgha', 'bankorok', 'santak', 'pargon'],
+            'chatturgha attack': ['chatturgha', 'antorbok', 'redgormor', 'pargon'],
+            'chatturgha pool': ['chatturgha', 'tier', 'redgormor', 'pargon'],
+            'chatturgha bind': ['chatturgha', 'bankorok', 'aretak', 'pargon'],
+            'ulyaoth enchant': ['ulyaoth', 'antorbok', 'magormor', 'pargon'],
+            'ulyaoth recover': ['ulyaoth', 'narokath', 'santak', 'pargon'],
+            'ulyaoth reveal': ['ulyaoth', 'narokath', 'redgormor', 'pargon'],
+            'ulyaoth field': ['ulyaoth', 'bankorok', 'redgormor', 'pargon'],
+            'ulyaoth dispel': ['ulyaoth', 'nethlek', 'redgormor', 'pargon'],
+            'ulyaoth summon': ['ulyaoth', 'tier', 'aretak', 'pargon'],
+            'ulyaoth shield': ['ulyaoth', 'bankorok', 'santak', 'pargon'],
+            'ulyaoth attack': ['ulyaoth', 'antorbok', 'redgormor', 'pargon'],
+            'ulyaoth pool': ['ulyaoth', 'tier', 'redgormor', 'pargon'],
+            'ulyaoth bind': ['ulyaoth', 'bankorok', 'aretak', 'pargon'],
+            'xellotath enchant': ['xellotath', 'antorbok', 'magormor', 'pargon'],
+            'xellotath recover': ['xellotath', 'narokath', 'santak', 'pargon'],
+            'xellotath reveal': ['xellotath', 'narokath', 'redgormor', 'pargon'],
+            'xellotath field': ['xellotath', 'bankorok', 'redgormor', 'pargon'],
+            'xellotath dispel': ['xellotath', 'nethlek', 'redgormor', 'pargon'],
+            'xellotath summon': ['xellotath', 'tier', 'aretak', 'pargon'],
+            'xellotath shield': ['xellotath', 'bankorok', 'santak', 'pargon'],
+            'xellotath attack': ['xellotath', 'antorbok', 'redgormor', 'pargon'],
+            'xellotath pool': ['xellotath', 'tier', 'redgormor', 'pargon'],
+            'xellotath bind': ['xellotath', 'bankorok', 'aretak', 'pargon'],
+            'mantorok enchant': ['mantorok', 'antorbok', 'magormor', 'pargon'],
+            'mantorok recover': ['mantorok', 'narokath', 'santak', 'pargon'],
+            'mantorok reveal': ['mantorok', 'narokath', 'redgormor', 'pargon'],
+            'mantorok field': ['mantorok', 'bankorok', 'redgormor', 'pargon'],
+            'mantorok dispel': ['mantorok', 'nethlek', 'redgormor', 'pargon'],
+            'mantorok shield': ['mantorok', 'bankorok', 'santak', 'pargon'],
+            'mantorok attack': ['mantorok', 'antorbok', 'redgormor', 'pargon'],
+            'mantorok pool': ['mantorok', 'tier', 'redgormor', 'pargon'],
+            'mantorok bind': ['mantorok', 'bankorok', 'aretak', 'pargon']
+        };
+        const entities = document.querySelectorAll('.rune, .spell');
+        const translations = document.getElementsByClassName('translation');
 
-            document.getElementById('translate').addEventListener('click', toggleTranslations);
-            document.getElementById('reset').addEventListener('click', resetTable);
+        document.getElementById('translate').addEventListener('click', toggleTranslations);
+        document.getElementById('reset').addEventListener('click', resetTable);
 
-            Array.from(entities).forEach(entity => {
-                entity.addEventListener('click', function() {
-                    /* if pargon was selected no deselection is necessary as pargon can be used with other nouns */
-                    if (this.id === 'pargon') {
-                        this.classList.toggle('selected');
+        Array.from(entities).forEach(entity => {
+            entity.addEventListener('click', function() {
+                /* if pargon was selected no deselection is necessary as pargon can be used with other nouns */
+                if (this.id === 'pargon') {
+                    this.classList.toggle('selected');
+                }
+                /* if a spell was clicked */
+                else if (this.dataset.type === 'spell') {
+                    /* if spell was deselected reset table except for alignment */
+                    if (!this.classList.toggle('selected')) {
+                        resetTable(false);
                     }
-                    /* if a spell was clicked */
-                    else if (this.dataset.type === 'spell') {
-                        /* if spell was deselected reset table except for alignment */
-                        if (!this.classList.toggle('selected')) {
-                            resetTable(false);
-                        }
-                        /* if spell was selected we select the corresponding verb and noun instead */
-                        else {
-                            deselect('verb');
-                            deselect('noun');
-                            spellDict[`chatturgha ${this.id}`].slice(1, 3).forEach(rune => { /* alignment doesn't matter here as we're just interested in the verb and noun */
-                                document.getElementById(rune).classList.add('selected');
-                            });
-                            /* special mantorok case for summon */
-                            if (this.id === 'summon' && document.getElementById('alignment').className === 'mantorok') {
-                                deselect('alignment');
-                                document.getElementById('alignment').className = 'unaligned';
-                            }
-                        }
-                    }
-                    /* if any other entity was selected */
-                    else if (this.classList.toggle('selected')) {
-                        if (this.dataset.type === 'alignment') { /* set alignment color */
-                            document.getElementById('alignment').className = this.id;
-                        }
-                        deselect(this.dataset.type, this);
-                    }
-                    /* if any entity was deselected */
+                    /* if spell was selected we select the corresponding verb and noun instead */
                     else {
-                        if (this.dataset.type === 'alignment') { /* reset alignment color */
+                        deselect('verb');
+                        deselect('noun');
+                        spellDict[`chatturgha ${this.id}`].slice(1, 3).forEach(rune => { /* alignment doesn't matter here as we're just interested in the verb and noun */
+                            document.getElementById(rune).classList.add('selected');
+                        });
+                        /* special mantorok case for summon */
+                        if (this.id === 'summon' && document.getElementById('alignment').className === 'mantorok') {
+                            deselect('alignment');
                             document.getElementById('alignment').className = 'unaligned';
                         }
                     }
-                    deselect('spell');
-                    toggleInactive();
-                    /* if only one spell is active and both a verb and a noun is selected we select the active spell */
-                    let activeSpells = document.querySelectorAll('.spell:not(.inactive)');
-                    if (activeSpells.length === 1 && document.querySelectorAll("[data-type='verb'].selected, [data-type='noun'].selected").length === 2) {
-                        activeSpells[0].classList.add('selected');
+                }
+                /* if any other entity was selected */
+                else if (this.classList.toggle('selected')) {
+                    if (this.dataset.type === 'alignment') { /* set alignment color */
+                        document.getElementById('alignment').className = this.id;
                     }
-                });
+                    deselect(this.dataset.type, this);
+                }
+                /* if any entity was deselected */
+                else {
+                    if (this.dataset.type === 'alignment') { /* reset alignment color */
+                        document.getElementById('alignment').className = 'unaligned';
+                    }
+                }
+                deselect('spell');
+                toggleInactive();
+                /* if only one spell is active and both a verb and a noun is selected we select the active spell */
+                let activeSpells = document.querySelectorAll('.spell:not(.inactive)');
+                if (activeSpells.length === 1 && document.querySelectorAll("[data-type='verb'].selected, [data-type='noun'].selected").length === 2) {
+                    activeSpells[0].classList.add('selected');
+                }
             });
+        });
 
-            function deselect(type, except) {
-                Array.from(entities).forEach(entity => {
-                    if (entity.dataset.type === type && !entity.isSameNode(except)) {
-                        entity.classList.remove('selected');
-                    }
-                });
-            }
-
-            function toggleInactive() {
-                let selectedRunes = [];
-                let possibleSpells = [];
-                let activeRunes = [];
-                Array.from(document.getElementsByClassName('rune selected')).forEach(rune => {
-                    selectedRunes.push(rune.id);
-                });
-                for (const [spell, runes] of Object.entries(spellDict)) {
-                    if (selectedRunes.every(rune => runes.includes(rune))) {
-                        possibleSpells.push([spell.split(' ')[1], ...runes]); /* split spell key to get id without alignment */
-                    }
+        function deselect(type, except) {
+            Array.from(entities).forEach(entity => {
+                if (entity.dataset.type === type && !entity.isSameNode(except)) {
+                    entity.classList.remove('selected');
                 }
-                activeRunes = union(...possibleSpells);
-                Array.from(document.querySelectorAll('.rune, .spell')).forEach(rune => {
-                    rune.classList.remove('inactive');
-                    if (!activeRunes.includes(rune.id) && !rune.classList.contains('selected')) {
-                        rune.classList.add('inactive');
-                    }
-                });
-            }
+            });
+        }
 
-            function toggleTranslations(e) {
-                Array.from(translations).forEach(translation => {
-                    translation.classList.toggle('show');
-                });
-                e.target.innerHTML = e.target.innerHTML === 'Show translations' ? 'Hide translations' : 'Show translations';
-            }
-
-            function resetTable(resetAlignment = true) {
-                Array.from(entities).forEach(entity => {
-                    if (!(entity.dataset.type === 'alignment' && !resetAlignment)) {
-                        entity.classList.remove('inactive', 'selected');
-                    }
-                });
-                if (resetAlignment) {
-                    document.getElementById('alignment').className = 'unaligned';
+        function toggleInactive() {
+            let selectedRunes = [];
+            let possibleSpells = [];
+            let activeRunes = [];
+            Array.from(document.getElementsByClassName('rune selected')).forEach(rune => {
+                selectedRunes.push(rune.id);
+            });
+            for (const [spell, runes] of Object.entries(spellDict)) {
+                if (selectedRunes.every(rune => runes.includes(rune))) {
+                    possibleSpells.push([spell.split(' ')[1], ...runes]); /* split spell key to get id without alignment */
                 }
             }
+            activeRunes = union(...possibleSpells);
+            Array.from(document.querySelectorAll('.rune, .spell')).forEach(rune => {
+                rune.classList.remove('inactive');
+                if (!activeRunes.includes(rune.id) && !rune.classList.contains('selected')) {
+                    rune.classList.add('inactive');
+                }
+            });
+        }
 
-            function union() {
-                let flat = [].concat(...arguments);
-                return [...new Set(flat)];
+        function toggleTranslations(e) {
+            Array.from(translations).forEach(translation => {
+                translation.classList.toggle('show');
+            });
+            e.target.innerHTML = e.target.innerHTML === 'Show translations' ? 'Hide translations' : 'Show translations';
+        }
+
+        function resetTable(resetAlignment = true) {
+            Array.from(entities).forEach(entity => {
+                if (!(entity.dataset.type === 'alignment' && !resetAlignment)) {
+                    entity.classList.remove('inactive', 'selected');
+                }
+            });
+            if (resetAlignment) {
+                document.getElementById('alignment').className = 'unaligned';
             }
-        </script>
-    </body>
+        }
+
+        function union() {
+            let flat = [].concat(...arguments);
+            return [...new Set(flat)];
+        }
+    </script>
+</body>
 </html>
