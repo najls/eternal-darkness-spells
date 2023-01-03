@@ -41,9 +41,16 @@
                 --inactive-color: DimGray;
             }
         }
+        h1 {
+            font-size: 1rem;
+            margin: 0;
+            text-align: center;
+        }
         body, button {
             background-color: var(--background-color);
             color: var(--color);
+            font-size: .75rem;
+            font-family: 'Times New Roman', Times, serif;
             padding: .5rem;
         }
         button, .rune, .spell { cursor: pointer; }
@@ -87,10 +94,9 @@
             border-color: var(--inactive-color);
             color: var(--inactive-color);
         }
-        .table-group {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-        }
+        .table-group { display: grid; }
+        .alignments, .spells { grid-template-columns: repeat(2, 1fr); }
+        .verbs, .nouns { grid-template-columns: repeat(3, 1fr); }
         .table-cell {
             margin: .063rem;
             padding: .5rem;
@@ -104,6 +110,11 @@
             grid-column: 1/-1;
         }
         @media (min-width: 666px) {
+            body, button { font-size: 1rem; }
+            h1 {
+                font-size: 2rem;
+                text-align: left;
+            }
             .table { display: flex; }
             .table-group {
                 grid-template-columns: 1fr;
