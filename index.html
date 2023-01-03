@@ -42,6 +42,14 @@
                 --inactive-color: DimGray;
             }
         }
+        html, body {
+            margin: 0;
+            height: 100%;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
         h1 {
             font-size: 1rem;
             margin: 0;
@@ -53,7 +61,7 @@
             font-size: .875rem;
             font-family: 'Times New Roman', Times, serif;
         }
-        body, button, .table-cell { padding: .75vh; }
+        button, .table-cell { padding: .75vh; }
         button, .rune, .spell { cursor: pointer; }
         button, .table, .table-cell { border: 1px solid var(--color); }
         .buttons {
@@ -95,7 +103,14 @@
             border-color: var(--inactive-color);
             color: var(--inactive-color) !important;
         }
-        .table-group { display: grid; }
+        .table {
+            display: grid;
+            grid-auto-rows: min-content;
+            flex: 1;
+        }
+        .table-group {
+            display: grid;
+        }
         .alignments, .spells { grid-template-columns: repeat(2, 1fr); }
         .verbs, .nouns { grid-template-columns: repeat(3, 1fr); }
         .table-cell {
@@ -129,50 +144,48 @@
         }
     </style>
 </head>
-<body>
+<body class="unaligned">
     <h1>Runes and Spells</h1>
     <div class="buttons">
         <button id="translate">Show translations</button>
         <button id="reset">Reset</button>
     </div>
-    <div class="unaligned" id="alignment">
-        <div class="table">
-            <div class="table-group alignments">
-                <div class="table-cell heading">Alignment</div>
-                <div class="table-cell rune" id="chatturgha" data-type="alignment">Chattur'gha<span class="translation">(Claw)</span></div>
-                <div class="table-cell rune" id="ulyaoth" data-type="alignment">Ulyaoth<span class="translation">(Veil)</span></div>
-                <div class="table-cell rune" id="xellotath" data-type="alignment">Xel'lotath<span class="translation">(Sigil)</span></div>
-                <div class="table-cell rune" id="mantorok" data-type="alignment">Mantorok<span class="translation">(Black Heart)</span></div>
-            </div>
-            <div class="table-group verbs">
-                <div class="table-cell heading">Verb</div>
-                <div class="table-cell rune" id="bankorok" data-type="verb">Bankorok<span class="translation">(Protect)</span></div>
-                <div class="table-cell rune" id="tier" data-type="verb">Tier<span class="translation">(Summon)</span></div>
-                <div class="table-cell rune" id="narokath" data-type="verb">Narokath<span class="translation">(Absorb)</span></div>
-                <div class="table-cell rune" id="nethlek" data-type="verb">Nethlek<span class="translation">(Dispel)</span></div>
-                <div class="table-cell rune" id="antorbok" data-type="verb">Antorbok<span class="translation">(Project)</span></div>
-            </div>
-            <div class="table-group nouns">
-                <div class="table-cell heading">Noun</div>
-                <div class="table-cell rune" id="magormor" data-type="noun">Magormor<span class="translation">(Item)</span></div>
-                <div class="table-cell rune" id="redgormor" data-type="noun">Redgormor<span class="translation">(Area)</span></div>
-                <div class="table-cell rune" id="aretak" data-type="noun">Aretak<span class="translation">(Creature)</span></div>
-                <div class="table-cell rune" id="santak" data-type="noun">Santak<span class="translation">(Self)</span></div>
-                <div class="table-cell rune" id="pargon" data-type="pargon">Pargon<span class="translation">(Power)</span></div>
-            </div>
-            <div class="table-group spells">
-                <div class="table-cell heading">Spell</div>
-                <div class="table-cell spell" id="enchant" data-type="spell">Enchant Item</div>
-                <div class="table-cell spell" id="recover" data-type="spell">Recover</div>
-                <div class="table-cell spell" id="reveal" data-type="spell">Reveal Invisible</div>
-                <div class="table-cell spell" id="field" data-type="spell">Damage Field</div>
-                <div class="table-cell spell" id="dispel" data-type="spell">Dispel Magick</div>
-                <div class="table-cell spell" id="summon" data-type="spell">Summon Creature</div>
-                <div class="table-cell spell" id="shield" data-type="spell">Shield</div>
-                <div class="table-cell spell" id="attack" data-type="spell">Magickal Attack</div>
-                <div class="table-cell spell" id="pool" data-type="spell">Magick Pool</div>
-                <div class="table-cell spell" id="bind" data-type="spell">Bind</div>
-            </div>
+    <div class="table">
+        <div class="table-group alignments">
+            <div class="table-cell heading">Alignment</div>
+            <div class="table-cell rune" id="chatturgha" data-type="alignment">Chattur'gha<span class="translation">(Claw)</span></div>
+            <div class="table-cell rune" id="ulyaoth" data-type="alignment">Ulyaoth<span class="translation">(Veil)</span></div>
+            <div class="table-cell rune" id="xellotath" data-type="alignment">Xel'lotath<span class="translation">(Sigil)</span></div>
+            <div class="table-cell rune" id="mantorok" data-type="alignment">Mantorok<span class="translation">(Black Heart)</span></div>
+        </div>
+        <div class="table-group verbs">
+            <div class="table-cell heading">Verb</div>
+            <div class="table-cell rune" id="bankorok" data-type="verb">Bankorok<span class="translation">(Protect)</span></div>
+            <div class="table-cell rune" id="tier" data-type="verb">Tier<span class="translation">(Summon)</span></div>
+            <div class="table-cell rune" id="narokath" data-type="verb">Narokath<span class="translation">(Absorb)</span></div>
+            <div class="table-cell rune" id="nethlek" data-type="verb">Nethlek<span class="translation">(Dispel)</span></div>
+            <div class="table-cell rune" id="antorbok" data-type="verb">Antorbok<span class="translation">(Project)</span></div>
+        </div>
+        <div class="table-group nouns">
+            <div class="table-cell heading">Noun</div>
+            <div class="table-cell rune" id="magormor" data-type="noun">Magormor<span class="translation">(Item)</span></div>
+            <div class="table-cell rune" id="redgormor" data-type="noun">Redgormor<span class="translation">(Area)</span></div>
+            <div class="table-cell rune" id="aretak" data-type="noun">Aretak<span class="translation">(Creature)</span></div>
+            <div class="table-cell rune" id="santak" data-type="noun">Santak<span class="translation">(Self)</span></div>
+            <div class="table-cell rune" id="pargon" data-type="pargon">Pargon<span class="translation">(Power)</span></div>
+        </div>
+        <div class="table-group spells">
+            <div class="table-cell heading">Spell</div>
+            <div class="table-cell spell" id="enchant" data-type="spell">Enchant Item</div>
+            <div class="table-cell spell" id="recover" data-type="spell">Recover</div>
+            <div class="table-cell spell" id="reveal" data-type="spell">Reveal Invisible</div>
+            <div class="table-cell spell" id="field" data-type="spell">Damage Field</div>
+            <div class="table-cell spell" id="dispel" data-type="spell">Dispel Magick</div>
+            <div class="table-cell spell" id="summon" data-type="spell">Summon Creature</div>
+            <div class="table-cell spell" id="shield" data-type="spell">Shield</div>
+            <div class="table-cell spell" id="attack" data-type="spell">Magickal Attack</div>
+            <div class="table-cell spell" id="pool" data-type="spell">Magick Pool</div>
+            <div class="table-cell spell" id="bind" data-type="spell">Bind</div>
         </div>
     </div>
     <script>
@@ -243,23 +256,23 @@
                             document.getElementById(rune).classList.add('selected');
                         });
                         /* special mantorok case for summon */
-                        if (this.id === 'summon' && document.getElementById('alignment').className === 'mantorok') {
+                        if (this.id === 'summon' && document.body.className === 'mantorok') {
                             deselect('alignment');
-                            document.getElementById('alignment').className = 'unaligned';
+                            document.body.className = 'unaligned';
                         }
                     }
                 }
                 /* if any other entity was selected */
                 else if (this.classList.toggle('selected')) {
                     if (this.dataset.type === 'alignment') { /* set alignment color */
-                        document.getElementById('alignment').className = this.id;
+                        document.body.className = this.id;
                     }
                     deselect(this.dataset.type, this);
                 }
                 /* if any entity was deselected */
                 else {
                     if (this.dataset.type === 'alignment') { /* reset alignment color */
-                        document.getElementById('alignment').className = 'unaligned';
+                        document.body.className = 'unaligned';
                     }
                 }
                 deselect('spell');
@@ -315,7 +328,7 @@
                 }
             });
             if (resetAlignment) {
-                document.getElementById('alignment').className = 'unaligned';
+                document.body.className = 'unaligned';
             }
         }
 
