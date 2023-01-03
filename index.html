@@ -115,6 +115,7 @@
             display: grid;
             grid-template-rows: 1fr 1fr 1fr 2fr;
             flex: 1;
+            padding: calc(var(--grid-gap) / 2);
         }
         .table-group {
             display: grid;
@@ -122,7 +123,7 @@
         .alignments, .spells { grid-template-columns: repeat(2, 1fr); }
         .verbs, .nouns { grid-template-columns: repeat(3, 1fr); }
         .table-cell {
-            margin: .063rem;
+            margin: calc(var(--grid-gap) / 2);
             display: flex;
             flex-wrap: wrap;
             align-content: center;
