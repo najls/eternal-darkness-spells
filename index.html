@@ -57,7 +57,7 @@
         }
         h1 {
             font-size: 1.125rem;
-            margin: .5rem 0 0;
+            margin: .375rem 0 .125rem;
             text-align: center;
         }
         body, button {
@@ -68,7 +68,8 @@
         }
         button {
             margin: 0;
-            padding: .5rem;
+            min-height: 1rem;
+            height: calc((100vh - 1.813rem) / 17.55); /* silly way of making buttons approximately same height as table cells*/
         }
         button, .rune, .spell { cursor: pointer; }
         button, .table, .table-cell { border: 1px solid var(--color); }
@@ -76,7 +77,7 @@
             display: grid;
             gap: var(--grid-gap);
             grid-template-columns: 1fr 1fr;
-            margin: .5rem 0;
+            margin: var(--grid-gap) 0;
         }
         .translation { display: none; }
         .translation.show { display: inline; }
@@ -142,7 +143,7 @@
                 font-size: 2rem;
                 text-align: left;
             }
-            .buttons { margin: 1rem 0; }
+            .buttons { margin-top: 1rem; }
             .table { display: flex; }
             .table-group {
                 grid-template-columns: 1fr;
