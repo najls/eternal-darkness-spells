@@ -43,16 +43,16 @@
             }
         }
         html, body {
-            margin: 0;
             height: 100%;
+            margin: 0;
         }
         body {
             display: flex;
             flex-direction: column;
         }
         h1 {
-            font-size: 1rem;
-            margin: 0;
+            font-size: 1.125rem;
+            margin: .5rem 0 0;
             text-align: center;
         }
         body, button {
@@ -61,7 +61,7 @@
             font-size: .875rem;
             font-family: 'Times New Roman', Times, serif;
         }
-        button, .table-cell { padding: .75vh; }
+        button { padding: .5rem; }
         button, .rune, .spell { cursor: pointer; }
         button, .table, .table-cell { border: 1px solid var(--color); }
         .buttons {
@@ -105,7 +105,7 @@
         }
         .table {
             display: grid;
-            grid-auto-rows: min-content;
+            grid-template-rows: 1fr 1fr 1fr 2fr;
             flex: 1;
         }
         .table-group {
@@ -126,18 +126,20 @@
             padding: .5vh;
         }
         @media (min-width: 666px) {
+            html, body { height: auto; }
+            body { margin: 2rem; }
+            body, button { font-size: 1rem; }
             h1 {
                 font-size: 2rem;
                 text-align: left;
             }
-            body, button { font-size: 1rem; }
-            body, button, .table-cell { padding: .5rem; }
             .buttons { margin: 1rem 0; }
             .table { display: flex; }
             .table-group {
                 grid-template-columns: 1fr;
                 flex: 1;
             }
+            .table-cell { padding: .5rem; }
             .table-group.alignments { grid-template-rows: auto repeat(4, 1fr); }
             .table-group.verbs, .table-group.nouns { grid-template-rows: auto repeat(5, 1fr); }
             .table-group.spells { grid-template-rows: auto repeat(10, 1fr); }
