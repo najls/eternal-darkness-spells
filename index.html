@@ -136,9 +136,10 @@
             padding: .5vh;
         }
         @media (min-width: 666px) {
-            html, body { height: auto; }
+            html, body, button { height: auto; }
             body { padding: 2rem; }
             body, button { font-size: 1rem; }
+            button, .table-cell { padding: .5rem; }
             h1 {
                 font-size: 2rem;
                 text-align: left;
@@ -149,7 +150,6 @@
                 grid-template-columns: 1fr;
                 flex: 1;
             }
-            .table-cell { padding: .5rem; }
             .table-group.alignments { grid-template-rows: auto repeat(4, 1fr); }
             .table-group.verbs, .table-group.nouns { grid-template-rows: auto repeat(5, 1fr); }
             .table-group.spells { grid-template-rows: auto repeat(10, 1fr); }
