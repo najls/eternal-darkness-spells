@@ -90,7 +90,7 @@
         .buttons {
             display: grid;
             gap: var(--grid-gap);
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
             margin: var(--grid-gap) 0;
         }
         .display-none { display: none; }
@@ -126,7 +126,7 @@
             background-color: var(--unaligned-background-color);
             border-color: var(--unaligned-color);
         }
-        .table-cell.inactive {
+        .table-cell.inactive:not(.blind) {
             background-color: var(--inactive-background-color);
             border-color: var(--inactive-color);
             color: var(--inactive-color) !important;
@@ -135,7 +135,7 @@
             height: 1.125em;
             filter: var(--filter);
         }
-        .table-cell.inactive img { filter: var(--inactive-filter) !important; }
+        .table-cell.inactive:not(.blind) img { filter: var(--inactive-filter) !important; }
         .table {
             display: grid;
             grid-template-rows: 1fr 1fr 1fr 2fr;
@@ -186,6 +186,7 @@
     <div class="buttons">
         <button id="name" data-target="name" data-show="Show names" data-hide="Hide names">Hide names</button>
         <button id="translate" data-target="translation" data-show="Show translations" data-hide="Hide translations">Show translations</button>
+        <button id="blind" data-on="Turn blind mode on" data-off="Turn blind mode off">Turn blind mode on</button>
         <button id="reset">Reset</button>
     </div>
     <div class="table">
@@ -269,9 +270,11 @@
             'mantorok bind': ['mantorok', 'bankorok', 'aretak', 'pargon']
         };
         const entities = document.querySelectorAll('.rune, .spell');
+        var blindMode = false;
 
         document.getElementById('name').addEventListener('click', toggleDisplay);
         document.getElementById('translate').addEventListener('click', toggleDisplay);
+        document.getElementById('blind').addEventListener('click', toggleBlindMode);
         document.getElementById('reset').addEventListener('click', resetTable);
 
         Array.from(entities).forEach(entity => {
@@ -345,9 +348,10 @@
             }
             activeRunes = union(...possibleSpells);
             Array.from(document.querySelectorAll('.rune, .spell')).forEach(rune => {
-                rune.classList.remove('inactive');
+                rune.classList.remove('inactive', 'blind');
                 if (!activeRunes.includes(rune.id) && !rune.classList.contains('selected')) {
                     rune.classList.add('inactive');
+                    if (blindMode) rune.classList.add('blind');
                 }
             });
         }
@@ -360,10 +364,16 @@
             e.target.innerHTML = e.target.innerHTML === e.target.dataset.show ? e.target.dataset.hide : e.target.dataset.show;
         }
 
+        function toggleBlindMode(e) {
+            blindMode = blindMode ? false : true;
+            toggleInactive();
+            e.target.innerHTML = blindMode ? e.target.dataset.off : e.target.dataset.on;
+        }
+
         function resetTable(resetAlignment = true) {
             Array.from(entities).forEach(entity => {
                 if (!(entity.dataset.type === 'alignment' && !resetAlignment)) {
-                    entity.classList.remove('inactive', 'selected');
+                    entity.classList.remove('inactive', 'selected', 'blind');
                 }
             });
             if (resetAlignment) {
