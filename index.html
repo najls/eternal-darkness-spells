@@ -26,6 +26,13 @@
             --mantorok-color: black;
             --unaligned-color: black;
             --inactive-color: Silver;
+            --filter: none;
+            --chatturgha-filter: none;
+            --ulyaoth-filter: none;
+            --xellotath-filter: none;
+            --mantorok-filter: none;
+            --unaligned-filter: none;
+            --inactive-filter: invert(90%) sepia(11%) saturate(0%) hue-rotate(131deg) brightness(85%) contrast(80%);
         }
         @media (prefers-color-scheme: dark) {
             :root {
@@ -43,6 +50,13 @@
                 --mantorok-color: Violet;
                 --unaligned-color: Khaki;
                 --inactive-color: DimGray;
+                --filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(78deg) brightness(106%) contrast(102%);
+                --chatturgha-filter: invert(47%) sepia(76%) saturate(1573%) hue-rotate(331deg) brightness(101%) contrast(104%);
+                --ulyaoth-filter: invert(52%) sepia(86%) saturate(2162%) hue-rotate(163deg) brightness(106%) contrast(105%);
+                --xellotath-filter: invert(68%) sepia(93%) saturate(917%) hue-rotate(90deg) brightness(101%) contrast(104%);
+                --mantorok-filter: invert(64%) sepia(76%) saturate(512%) hue-rotate(246deg) brightness(97%) contrast(92%);
+                --unaligned-filter: invert(91%) sepia(21%) saturate(785%) hue-rotate(358deg) brightness(103%) contrast(88%);
+                --inactive-filter: invert(42%) sepia(1%) saturate(1346%) hue-rotate(44deg) brightness(98%) contrast(97%);
             }
         }
         html, body {
@@ -81,12 +95,16 @@
         }
         .translation { display: none; }
         .translation.show { display: inline; }
-        .translation::before { content: '\00a0'; }
         #chatturgha, .chatturgha .table-cell.selected { color: var(--chatturgha-color); }
+        #chatturgha img, .chatturgha .table-cell.selected img { filter: var(--chatturgha-filter); }
         #ulyaoth, .ulyaoth .table-cell.selected { color: var(--ulyaoth-color); }
+        #ulyaoth img, .ulyaoth .table-cell.selected img { filter: var(--ulyaoth-filter); }
         #xellotath, .xellotath .table-cell.selected { color: var(--xellotath-color); }
+        #xellotath img, .xellotath .table-cell.selected img { filter: var(--xellotath-filter); }
         #mantorok, .mantorok .table-cell.selected { color: var(--mantorok-color); }
+        #mantorok img, .mantorok .table-cell.selected img { filter: var(--mantorok-filter); }
         .unaligned .table-cell.selected { color: var(--unaligned-color); }
+        .unaligned .table-cell.selected img { filter: var(--unaligned-filter); }
         .chatturgha .table-cell.selected {
             background-color: var(--chatturgha-background-color);
             border-color: var(--chatturgha-color);
@@ -112,6 +130,14 @@
             border-color: var(--inactive-color);
             color: var(--inactive-color) !important;
         }
+        .table-cell img {
+            height: 1.125em;
+            filter: var(--filter);
+        }
+        .table-cell.inactive img { filter: var(--inactive-filter) !important; }
+        .chatturgha .rune img, #chatturgha .rune img {
+            filter: var(--chatturgha-filter);
+        }
         .table {
             display: grid;
             grid-template-rows: 1fr 1fr 1fr 2fr;
@@ -129,6 +155,7 @@
             flex-wrap: wrap;
             align-content: center;
             justify-content: center;
+            gap: .25em;
         }
         .heading {
             border: none;
@@ -165,26 +192,26 @@
     <div class="table">
         <div class="table-group alignments">
             <div class="table-cell heading">Alignment</div>
-            <div class="table-cell rune" id="chatturgha" data-type="alignment">Chattur'gha<span class="translation">(Claw)</span></div>
-            <div class="table-cell rune" id="ulyaoth" data-type="alignment">Ulyaoth<span class="translation">(Veil)</span></div>
-            <div class="table-cell rune" id="xellotath" data-type="alignment">Xel'lotath<span class="translation">(Sigil)</span></div>
-            <div class="table-cell rune" id="mantorok" data-type="alignment">Mantorok<span class="translation">(Black Heart)</span></div>
+            <div class="table-cell rune" id="chatturgha" data-type="alignment"><img src="img/chatturgha.svg" alt="Chattur'gha">Chattur'gha<span class="translation">(Claw)</span></div>
+            <div class="table-cell rune" id="ulyaoth" data-type="alignment"><img src="img/ulyaoth.svg" alt="Ulyaoth">Ulyaoth<span class="translation">(Veil)</span></div>
+            <div class="table-cell rune" id="xellotath" data-type="alignment"><img src="img/xellotath.svg" alt="Xel'lotath">Xel'lotath<span class="translation">(Sigil)</span></div>
+            <div class="table-cell rune" id="mantorok" data-type="alignment"><img src="img/mantorok.svg" alt="Mantorok">Mantorok<span class="translation">(Black Heart)</span></div>
         </div>
         <div class="table-group verbs">
             <div class="table-cell heading">Verb</div>
-            <div class="table-cell rune" id="bankorok" data-type="verb">Bankorok<span class="translation">(Protect)</span></div>
-            <div class="table-cell rune" id="tier" data-type="verb">Tier<span class="translation">(Summon)</span></div>
-            <div class="table-cell rune" id="narokath" data-type="verb">Narokath<span class="translation">(Absorb)</span></div>
-            <div class="table-cell rune" id="nethlek" data-type="verb">Nethlek<span class="translation">(Dispel)</span></div>
-            <div class="table-cell rune" id="antorbok" data-type="verb">Antorbok<span class="translation">(Project)</span></div>
+            <div class="table-cell rune" id="bankorok" data-type="verb"><img src="img/bankorok.svg" alt="Bankorok"></object>Bankorok<span class="translation">(Protect)</span></div>
+            <div class="table-cell rune" id="tier" data-type="verb"><img src="img/tier.svg" alt="Tier">Tier<span class="translation">(Summon)</span></div>
+            <div class="table-cell rune" id="narokath" data-type="verb"><img src="img/narokath.svg" alt="Narokath">Narokath<span class="translation">(Absorb)</span></div>
+            <div class="table-cell rune" id="nethlek" data-type="verb"><img src="img/nethlek.svg" alt="Nethlek">Nethlek<span class="translation">(Dispel)</span></div>
+            <div class="table-cell rune" id="antorbok" data-type="verb"><img src="img/antorbok.svg" alt="Antorbok">Antorbok<span class="translation">(Project)</span></div>
         </div>
         <div class="table-group nouns">
             <div class="table-cell heading">Noun</div>
-            <div class="table-cell rune" id="magormor" data-type="noun">Magormor<span class="translation">(Item)</span></div>
-            <div class="table-cell rune" id="redgormor" data-type="noun">Redgormor<span class="translation">(Area)</span></div>
-            <div class="table-cell rune" id="aretak" data-type="noun">Aretak<span class="translation">(Creature)</span></div>
-            <div class="table-cell rune" id="santak" data-type="noun">Santak<span class="translation">(Self)</span></div>
-            <div class="table-cell rune" id="pargon" data-type="pargon">Pargon<span class="translation">(Power)</span></div>
+            <div class="table-cell rune" id="magormor" data-type="noun"><img src="img/magormor.svg" alt="Magormor">Magormor<span class="translation">(Item)</span></div>
+            <div class="table-cell rune" id="redgormor" data-type="noun"><img src="img/redgormor.svg" alt="Redgormor">Redgormor<span class="translation">(Area)</span></div>
+            <div class="table-cell rune" id="aretak" data-type="noun"><img src="img/aretak.svg" alt="Aretak">Aretak<span class="translation">(Creature)</span></div>
+            <div class="table-cell rune" id="santak" data-type="noun"><img src="img/santak.svg" alt="Santak">Santak<span class="translation">(Self)</span></div>
+            <div class="table-cell rune" id="pargon" data-type="pargon"><img src="img/pargon.svg" alt="Pargon">Pargon<span class="translation">(Power)</span></div>
         </div>
         <div class="table-group spells">
             <div class="table-cell heading">Spell</div>
