@@ -20,11 +20,11 @@
             --mantorok-background-color: Violet;
             --unaligned-background-color: Khaki;
             --inactive-background-color: white;
-            --chatturgha-color: black;
-            --ulyaoth-color: black;
-            --xellotath-color: black;
-            --mantorok-color: black;
-            --unaligned-color: black;
+            --chatturgha-color: Black;
+            --ulyaoth-color: Black;
+            --xellotath-color: Black;
+            --mantorok-color: Black;
+            --unaligned-color: Black;
             --inactive-color: Silver;
             --filter: none;
             --chatturgha-filter: none;
@@ -37,20 +37,20 @@
         @media (prefers-color-scheme: dark) {
             :root {
                 --background-color: Black;
-                --color: White;
-                --chatturgha-background-color: black;
-                --ulyaoth-background-color: black;
-                --xellotath-background-color: black;
-                --mantorok-background-color: black;
-                --unaligned-background-color: black;
-                --inactive-background-color: black;
+                --color: Beige;
+                --chatturgha-background-color: rgba(255, 99, 71, .05);
+                --ulyaoth-background-color: rgba(0, 191, 255, .05);
+                --xellotath-background-color: rgba(0, 255, 127, .05);
+                --mantorok-background-color: rgba(238, 130, 238, .05);
+                --unaligned-background-color: rgba(240, 230, 140, .05);
+                --inactive-background-color: Black;
                 --chatturgha-color: Tomato;
                 --ulyaoth-color: DeepSkyBlue;
                 --xellotath-color: SpringGreen;
                 --mantorok-color: Violet;
                 --unaligned-color: Khaki;
                 --inactive-color: DimGray;
-                --filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(78deg) brightness(106%) contrast(102%);
+                --filter: invert(88%) sepia(27%) saturate(160%) hue-rotate(26deg) brightness(110%) contrast(92%);
                 --chatturgha-filter: invert(47%) sepia(76%) saturate(1573%) hue-rotate(331deg) brightness(101%) contrast(104%);
                 --ulyaoth-filter: invert(52%) sepia(86%) saturate(2162%) hue-rotate(163deg) brightness(106%) contrast(105%);
                 --xellotath-filter: invert(68%) sepia(93%) saturate(917%) hue-rotate(90deg) brightness(101%) contrast(104%);
@@ -67,13 +67,14 @@
             display: flex;
             flex-direction: column;
             padding: 0 var(--grid-gap) var(--grid-gap);
-            margin-top: calc(var(--grid-gap) * -1);;
+            margin-top: calc(var(--grid-gap) * -1);
         }
         h1 {
             font-size: 1.125rem;
             margin: .375rem 0 .125rem;
             text-align: center;
         }
+        h2 { font-size: .875rem }
         body, button {
             background-color: var(--background-color);
             color: var(--color);
@@ -85,27 +86,32 @@
             min-height: 1rem;
             height: calc((100vh - 1.813rem) / 17.55); /* silly way of making buttons approximately same height as table cells*/
         }
-        button, .rune, .spell { cursor: pointer; }
-        button, .table, .table-cell { border: 1px solid var(--color); }
+        button, .rune, .spell { cursor: pointer }
+        button, .table, .table-cell { border: 1px solid var(--color) }
         .buttons {
             display: grid;
             gap: var(--grid-gap);
             grid-template-columns: 1fr 1fr 1fr 1fr;
             margin: var(--grid-gap) 0;
         }
-        .display-none { display: none; }
+        button.active {
+            background-color: var(--unaligned-background-color);
+            border-color: var(--unaligned-color);
+            color: var(--unaligned-color);
+        }
+        .display-none { display: none }
         .name:not(.display-none) + .translation::before { content: '('}
         .name:not(.display-none) + .translation::after { content: ')'}
-        #chatturgha, .chatturgha .table-cell.selected { color: var(--chatturgha-color); }
-        #chatturgha img, .chatturgha .table-cell.selected img { filter: var(--chatturgha-filter); }
-        #ulyaoth, .ulyaoth .table-cell.selected { color: var(--ulyaoth-color); }
-        #ulyaoth img, .ulyaoth .table-cell.selected img { filter: var(--ulyaoth-filter); }
-        #xellotath, .xellotath .table-cell.selected { color: var(--xellotath-color); }
-        #xellotath img, .xellotath .table-cell.selected img { filter: var(--xellotath-filter); }
-        #mantorok, .mantorok .table-cell.selected { color: var(--mantorok-color); }
-        #mantorok img, .mantorok .table-cell.selected img { filter: var(--mantorok-filter); }
-        .unaligned .table-cell.selected { color: var(--unaligned-color); }
-        .unaligned .table-cell.selected img { filter: var(--unaligned-filter); }
+        #chatturgha, .chatturgha .table-cell.selected { color: var(--chatturgha-color) }
+        #chatturgha img, .chatturgha .table-cell.selected img { filter: var(--chatturgha-filter) }
+        #ulyaoth, .ulyaoth .table-cell.selected { color: var(--ulyaoth-color) }
+        #ulyaoth img, .ulyaoth .table-cell.selected img { filter: var(--ulyaoth-filter) }
+        #xellotath, .xellotath .table-cell.selected { color: var(--xellotath-color) }
+        #xellotath img, .xellotath .table-cell.selected img { filter: var(--xellotath-filter) }
+        #mantorok, .mantorok .table-cell.selected { color: var(--mantorok-color) }
+        #mantorok img, .mantorok .table-cell.selected img { filter: var(--mantorok-filter) }
+        .unaligned .table-cell.selected { color: var(--unaligned-color) }
+        .unaligned .table-cell.selected img { filter: var(--unaligned-filter) }
         .chatturgha .table-cell.selected {
             background-color: var(--chatturgha-background-color);
             border-color: var(--chatturgha-color);
@@ -135,7 +141,7 @@
             height: 1.125em;
             filter: var(--filter);
         }
-        .table-cell.inactive:not(.blind) img { filter: var(--inactive-filter) !important; }
+        .table-cell.inactive:not(.blind) img { filter: var(--inactive-filter) !important }
         .table {
             display: grid;
             grid-template-rows: 1fr 1fr 1fr 2fr;
@@ -145,8 +151,8 @@
         .table-group {
             display: grid;
         }
-        .alignments, .spells { grid-template-columns: repeat(2, 1fr); }
-        .verbs, .nouns { grid-template-columns: repeat(3, 1fr); }
+        .alignments, .spells { grid-template-columns: repeat(2, 1fr) }
+        .verbs, .nouns { grid-template-columns: repeat(3, 1fr) }
         .table-cell {
             margin: calc(var(--grid-gap) / 2);
             display: flex;
@@ -161,44 +167,44 @@
             padding: .5vh;
         }
         @media (min-width: 666px) {
-            html, body, button { height: auto; }
-            body { padding: 2rem; }
-            body, button { font-size: 1rem; }
-            button, .table-cell { padding: .5rem; }
+            html, body, button { height: auto }
+            body { padding: 2rem }
+            body, button { font-size: 1rem }
+            button, .table-cell { padding: .5rem }
             h1 {
                 font-size: 2rem;
                 text-align: left;
             }
-            .buttons { margin-top: 1rem; }
-            .table { display: flex; }
+            .buttons { margin-top: 1rem }
+            .table { display: flex }
             .table-group {
                 grid-template-columns: 1fr;
                 flex: 1;
             }
-            .table-group.alignments { grid-template-rows: auto repeat(4, 1fr); }
-            .table-group.verbs, .table-group.nouns { grid-template-rows: auto repeat(5, 1fr); }
-            .table-group.spells { grid-template-rows: auto repeat(10, 1fr); }
+            .table-group.alignments { grid-template-rows: auto repeat(4, 1fr) }
+            .table-group.verbs, .table-group.nouns { grid-template-rows: auto repeat(5, 1fr) }
+            .table-group.spells { grid-template-rows: auto repeat(10, 1fr) }
         }
     </style>
 </head>
 <body class="unaligned">
     <h1>Runes and Spells</h1>
     <div class="buttons">
-        <button id="name" data-target="name" data-show="Show names" data-hide="Hide names">Hide names</button>
-        <button id="translate" data-target="translation" data-show="Show translations" data-hide="Hide translations">Show translations</button>
-        <button id="blind" data-on="Turn blind mode on" data-off="Turn blind mode off">Turn blind mode on</button>
+        <button class="active" id="name" data-target="name">Name</button>
+        <button id="translate" data-target="translation">Translation</button>
+        <button id="blind">Blind mode</button>
         <button id="reset">Reset</button>
     </div>
     <div class="table">
         <div class="table-group alignments">
-            <div class="table-cell heading">Alignment</div>
+            <h2 class="table-cell heading">Alignment</h2>
             <div class="table-cell rune" id="chatturgha" data-type="alignment"><img src="img/chatturgha.svg" alt="Chattur'gha"><span class="name">Chattur'gha</span><span class="translation display-none">Claw</span></div>
             <div class="table-cell rune" id="ulyaoth" data-type="alignment"><img src="img/ulyaoth.svg" alt="Ulyaoth"><span class="name">Ulyaoth</span><span class="translation display-none">Veil</span></div>
             <div class="table-cell rune" id="xellotath" data-type="alignment"><img src="img/xellotath.svg" alt="Xel'lotath"><span class="name">Xel'lotath</span><span class="translation display-none">Sigil</span></div>
             <div class="table-cell rune" id="mantorok" data-type="alignment"><img src="img/mantorok.svg" alt="Mantorok"><span class="name">Mantorok</span><span class="translation display-none">Black Heart</span></div>
         </div>
         <div class="table-group verbs">
-            <div class="table-cell heading">Verb</div>
+            <h2 class="table-cell heading">Verb</h2>
             <div class="table-cell rune" id="bankorok" data-type="verb"><img src="img/bankorok.svg" alt="Bankorok"><span class="name">Bankorok</span><span class="translation display-none">Protect</span></div>
             <div class="table-cell rune" id="tier" data-type="verb"><img src="img/tier.svg" alt="Tier"><span class="name">Tier</span><span class="translation display-none">Summon</span></div>
             <div class="table-cell rune" id="narokath" data-type="verb"><img src="img/narokath.svg" alt="Narokath"><span class="name">Narokath</span><span class="translation display-none">Absorb</span></div>
@@ -206,7 +212,7 @@
             <div class="table-cell rune" id="antorbok" data-type="verb"><img src="img/antorbok.svg" alt="Antorbok"><span class="name">Antorbok</span><span class="translation display-none">Project</span></div>
         </div>
         <div class="table-group nouns">
-            <div class="table-cell heading">Noun</div>
+            <h2 class="table-cell heading">Noun</h2>
             <div class="table-cell rune" id="magormor" data-type="noun"><img src="img/magormor.svg" alt="Magormor"><span class="name">Magormor</span><span class="translation display-none">Item</span></div>
             <div class="table-cell rune" id="redgormor" data-type="noun"><img src="img/redgormor.svg" alt="Redgormor"><span class="name">Redgormor</span><span class="translation display-none">Area</span></div>
             <div class="table-cell rune" id="aretak" data-type="noun"><img src="img/aretak.svg" alt="Aretak"><span class="name">Aretak</span><span class="translation display-none">Creature</span></div>
@@ -214,7 +220,7 @@
             <div class="table-cell rune" id="pargon" data-type="pargon"><img src="img/pargon.svg" alt="Pargon"><span class="name">Pargon</span><span class="translation display-none">Power</span></div>
         </div>
         <div class="table-group spells">
-            <div class="table-cell heading">Spell</div>
+            <h2 class="table-cell heading">Spell</h2>
             <div class="table-cell spell" id="enchant" data-type="spell">Enchant Item</div>
             <div class="table-cell spell" id="recover" data-type="spell">Recover</div>
             <div class="table-cell spell" id="reveal" data-type="spell">Reveal Invisible</div>
@@ -357,17 +363,17 @@
         }
 
         function toggleDisplay(e) {
+            e.target.classList.toggle('active');
             let targetElements = document.getElementsByClassName(e.target.dataset.target);
             Array.from(targetElements).forEach(elem => {
                 elem.classList.toggle('display-none');
             });
-            e.target.innerHTML = e.target.innerHTML === e.target.dataset.show ? e.target.dataset.hide : e.target.dataset.show;
         }
 
         function toggleBlindMode(e) {
+            e.target.classList.toggle('active');
             blindMode = blindMode ? false : true;
             toggleInactive();
-            e.target.innerHTML = blindMode ? e.target.dataset.off : e.target.dataset.on;
         }
 
         function resetTable(resetAlignment = true) {
