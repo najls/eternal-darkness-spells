@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,7 +19,7 @@
             --xellotath-background-color: SpringGreen;
             --mantorok-background-color: Violet;
             --unaligned-background-color: Khaki;
-            --inactive-background-color: white;
+            --inactive-background-color: White;
             --chatturgha-color: Black;
             --ulyaoth-color: Black;
             --xellotath-color: Black;
@@ -37,12 +37,12 @@
         @media (prefers-color-scheme: dark) {
             :root {
                 --background-color: Black;
-                --color: Beige;
-                --chatturgha-background-color: rgba(255, 99, 71, .05);
-                --ulyaoth-background-color: rgba(0, 191, 255, .05);
-                --xellotath-background-color: rgba(0, 255, 127, .05);
-                --mantorok-background-color: rgba(238, 130, 238, .05);
-                --unaligned-background-color: rgba(240, 230, 140, .05);
+                --color: AntiqueWhite;
+                --chatturgha-background-color: rgba(255, 99, 71, .25);
+                --ulyaoth-background-color: rgba(0, 191, 255, .25);
+                --xellotath-background-color: rgba(0, 255, 127, .25);
+                --mantorok-background-color: rgba(238, 130, 238, .25);
+                --unaligned-background-color: rgba(240, 230, 140, .25);
                 --inactive-background-color: Black;
                 --chatturgha-color: Tomato;
                 --ulyaoth-color: DeepSkyBlue;
@@ -59,7 +59,7 @@
                 --inactive-filter: invert(42%) sepia(1%) saturate(1346%) hue-rotate(44deg) brightness(98%) contrast(97%);
             }
         }
-        html, body {
+                html, body {
             height: 100%;
             margin: 0;
         }
@@ -69,7 +69,7 @@
             padding: 0 var(--grid-gap) var(--grid-gap);
             margin-top: calc(var(--grid-gap) * -1);
         }
-        h1 {
+                h1 {
             font-size: 1.125rem;
             margin: .375rem 0 .125rem;
             text-align: center;
@@ -137,10 +137,6 @@
             border-color: var(--inactive-color);
             color: var(--inactive-color) !important;
         }
-        .table-cell img {
-            height: 1.125em;
-            filter: var(--filter);
-        }
         .table-cell.inactive:not(.blind) img { filter: var(--inactive-filter) !important }
         .table {
             display: grid;
@@ -160,6 +156,10 @@
             align-content: center;
             justify-content: center;
             gap: .25em;
+        }
+        .table-cell img {
+            height: 1.125em;
+            filter: var(--filter);
         }
         .heading {
             border: none;
@@ -192,7 +192,7 @@
     <div class="buttons">
         <button class="active" id="name" data-target="name">Name</button>
         <button id="translate" data-target="translation">Translation</button>
-        <button id="blind">Blind mode</button>
+        <button id="blind">Blind</button>
         <button id="reset">Reset</button>
     </div>
     <div class="table">
