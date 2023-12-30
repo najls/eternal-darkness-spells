@@ -1,0 +1,181 @@
+/* VARIABLES AND COLORS */
+:root { --gap: 2px }
+:root {
+    --background-color: White;
+    --color: Black;
+    --chatturgha-background-color: LightCoral;
+    --ulyaoth-background-color: DeepSkyBlue;
+    --xellotath-background-color: SpringGreen;
+    --mantorok-background-color: Violet;
+    --unaligned-background-color: Khaki;
+    --inactive-background-color: White;
+    --chatturgha-color: Black;
+    --ulyaoth-color: Black;
+    --xellotath-color: Black;
+    --mantorok-color: Black;
+    --unaligned-color: Black;
+    --inactive-color: Silver;
+    --filter: none;
+    --chatturgha-filter: none;
+    --ulyaoth-filter: none;
+    --xellotath-filter: none;
+    --mantorok-filter: none;
+    --unaligned-filter: none;
+    --inactive-filter: invert(90%) sepia(11%) saturate(0%) hue-rotate(131deg) brightness(85%) contrast(80%);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: Black;
+        --color: AntiqueWhite;
+        --chatturgha-background-color: rgba(255, 99, 71, .25);
+        --ulyaoth-background-color: rgba(0, 191, 255, .25);
+        --xellotath-background-color: rgba(0, 255, 127, .25);
+        --mantorok-background-color: rgba(238, 130, 238, .25);
+        --unaligned-background-color: rgba(240, 230, 140, .25);
+        --inactive-background-color: Black;
+        --chatturgha-color: Tomato;
+        --ulyaoth-color: DeepSkyBlue;
+        --xellotath-color: SpringGreen;
+        --mantorok-color: Violet;
+        --unaligned-color: Khaki;
+        --inactive-color: DimGray;
+        --filter: invert(88%) sepia(27%) saturate(160%) hue-rotate(26deg) brightness(110%) contrast(92%);
+        --chatturgha-filter: invert(47%) sepia(76%) saturate(1573%) hue-rotate(331deg) brightness(101%) contrast(104%);
+        --ulyaoth-filter: invert(52%) sepia(86%) saturate(2162%) hue-rotate(163deg) brightness(106%) contrast(105%);
+        --xellotath-filter: invert(68%) sepia(93%) saturate(917%) hue-rotate(90deg) brightness(101%) contrast(104%);
+        --mantorok-filter: invert(64%) sepia(76%) saturate(512%) hue-rotate(246deg) brightness(97%) contrast(92%);
+        --unaligned-filter: invert(91%) sepia(21%) saturate(785%) hue-rotate(358deg) brightness(103%) contrast(88%);
+        --inactive-filter: invert(42%) sepia(1%) saturate(1346%) hue-rotate(44deg) brightness(98%) contrast(97%);
+    }
+}
+
+/* TYPOGRAPHY */
+body, button {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: .875rem;
+}
+h1 { font-size: 1rem }
+h2 { font-size: .875rem }
+
+/* SIZING AND SPACING */
+* { box-sizing: border-box }
+html, body { height: 100% }
+html, body, h1, h2 { margin: 0 }
+body, main { padding: var(--gap) }
+button { padding: 4px }
+img {
+    display: inline;
+    height: 1em;
+    margin-right: .25em;
+    vertical-align: top;
+}
+
+/* STYLING */
+main, button { border: 1px solid var(--color) }
+h1, h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+button {
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.display-none { display: none }
+.name:not(.display-none) + .translation::before { content: ' (' }
+.name:not(.display-none) + .translation::after { content: ')' }
+
+/* GRID */
+body, header, main, section, .button-group {
+    display: grid;
+    gap: var(--gap);
+}
+body { grid-template-rows: 5fr 41fr }
+header { grid-template-rows: 17fr 24fr } /* approximation to match heigth of buttons under main */
+main { grid-template-rows: 8fr 8fr 8fr 17fr }
+section:not(.spells) { grid-template-rows: 1fr 3fr }
+section.spells { grid-template-rows: 2fr 15fr }
+header .button-group { grid-template-columns: repeat(4, 1fr) }
+.alignments .button-group, .spells .button-group { grid-template-columns: repeat(2, 1fr) }
+.verbs .button-group, .nouns .button-group { grid-template-columns: repeat(3, 1fr) }
+
+/* COLORS */
+body, button {
+    background-color: var(--background-color);
+    color: var(--color);
+}
+#chatturgha, .chatturgha button.selected { color: var(--chatturgha-color) }
+#chatturgha img, .chatturgha button.selected img { filter: var(--chatturgha-filter) }
+#ulyaoth, .ulyaoth button.selected { color: var(--ulyaoth-color) }
+#ulyaoth img, .ulyaoth button.selected img { filter: var(--ulyaoth-filter) }
+#xellotath, .xellotath button.selected { color: var(--xellotath-color) }
+#xellotath img, .xellotath button.selected img { filter: var(--xellotath-filter) }
+#mantorok, .mantorok button.selected { color: var(--mantorok-color) }
+#mantorok img, .mantorok button.selected img { filter: var(--mantorok-filter) }
+.unaligned button.selected { color: var(--unaligned-color) }
+.unaligned button.selected img { filter: var(--unaligned-filter) }
+.chatturgha button.selected {
+    background-color: var(--chatturgha-background-color);
+    border-color: var(--chatturgha-color);
+}
+.ulyaoth button.selected {
+    background-color: var(--ulyaoth-background-color);
+    border-color: var(--ulyaoth-color);
+}
+.xellotath button.selected {
+    background-color: var(--xellotath-background-color);
+    border-color: var(--xellotath-color);
+}
+.mantorok button.selected {
+    background-color: var(--mantorok-background-color);
+    border-color: var(--mantorok-color);
+}
+.unaligned button.selected {
+    background-color: var(--unaligned-background-color);
+    border-color: var(--unaligned-color);
+}
+button.active {
+    background-color: var(--unaligned-background-color);
+    border-color: var(--unaligned-color);
+    color: var(--unaligned-color);
+}
+button.inactive:not(.blind) {
+    background-color: var(--inactive-background-color);
+    border-color: var(--inactive-color);
+    color: var(--inactive-color) !important;
+}
+button.inactive:not(.blind) img { filter: var(--inactive-filter) !important }
+button img { filter: var(--filter) }
+
+@media (min-width: calc(2 * 333px)) {
+    body {
+        margin: 0 auto;
+        max-width: calc(3 * 333px);
+        max-height: 499px;
+    }
+
+    /* GRID */
+    body { grid-template-rows: 2fr 11fr }
+    header { grid-template-rows: 11fr 10fr }/* new approximation to match heigth of buttons under main */
+    main {
+        grid-template-rows: 1fr;
+        grid-template-columns: repeat(4, 1fr);
+    }
+    section { grid-template-rows: 1fr 10fr !important }
+    main .button-group { grid-template-columns: 1fr !important }
+    .alignments .button-group { grid-template-rows: repeat(4, 1fr) }
+    .verbs .button-group, .nouns .button-group { grid-template-rows: repeat(5, 1fr) }
+    .spells .button-group { grid-template-rows: repeat(10, 1fr) }
+}
+
+@media (min-width: calc(3 * 333px)) {
+    /* TYPOGRAPHY */
+    h1 { font-size: 1.5rem }
+    h2 { font-size: .938rem }
+
+    /* GRID */
+    body { grid-template-rows: 3fr 11fr }
+    header { grid-template-rows: 20fr 9fr } /* new approximation to match heigth of buttons under main */
+}
