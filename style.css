@@ -87,7 +87,7 @@ button {
 .name:not(.display-none) + .translation::before { content: ' (' }
 .name:not(.display-none) + .translation::after { content: ')' }
 
-/* GRID */
+/* DISPLAY */
 body, header, main, section, .button-group {
     display: grid;
     gap: var(--gap);
@@ -150,32 +150,21 @@ button.inactive:not(.blind) img { filter: var(--inactive-filter) !important }
 button img { filter: var(--filter) }
 
 @media (min-width: calc(2 * 333px)) {
+    /* SIZING AND SPACING */
+    h1, h2 { margin: .25rem 0 }
+
+    /* DISPLAY */
     body {
+        grid-template-rows: auto 85%;
         margin: 0 auto;
         max-width: calc(3 * 333px);
         max-height: 499px;
     }
-
-    /* GRID */
-    body { grid-template-rows: 2fr 11fr }
-    header { grid-template-rows: 11fr 10fr }/* new approximation to match heigth of buttons under main */
-    main {
-        grid-template-rows: 1fr;
-        grid-template-columns: repeat(4, 1fr);
+    header { grid-template-rows: 46% auto }
+    main { display: flex }
+    section {
+        flex: 1;
+        grid-template-rows: 6% auto !important;
     }
-    section { grid-template-rows: 1fr 10fr !important }
     main .button-group { grid-template-columns: 1fr !important }
-    .alignments .button-group { grid-template-rows: repeat(4, 1fr) }
-    .verbs .button-group, .nouns .button-group { grid-template-rows: repeat(5, 1fr) }
-    .spells .button-group { grid-template-rows: repeat(10, 1fr) }
-}
-
-@media (min-width: calc(3 * 333px)) {
-    /* TYPOGRAPHY */
-    h1 { font-size: 1.5rem }
-    h2 { font-size: .938rem }
-
-    /* GRID */
-    body { grid-template-rows: 3fr 11fr }
-    header { grid-template-rows: 20fr 9fr } /* new approximation to match heigth of buttons under main */
 }
