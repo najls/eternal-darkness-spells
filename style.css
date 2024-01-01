@@ -1,5 +1,7 @@
-/* VARIABLES AND COLORS */
+/* VARIABLES */
 :root { --gap: 2px }
+
+/* COLORS */
 :root {
     --background-color: White;
     --color: Black;
@@ -50,12 +52,13 @@
 }
 
 /* TYPOGRAPHY */
-body, button {
+body { font-size: 1rem }
+button {
     font-family: 'Times New Roman', Times, serif;
-    font-size: .875rem;
+    font-size: .875em;
 }
-h1 { font-size: 1rem }
-h2 { font-size: .875rem }
+h1 { font-size: 1em }
+h2 { font-size: .875em }
 
 /* SIZING AND SPACING */
 * { box-sizing: border-box }
@@ -88,15 +91,20 @@ button {
 .name:not(.display-none) + .translation::after { content: ')' }
 
 /* DISPLAY */
-body, header, main, section, .button-group {
+body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+}
+header, main { flex: 1 }
+header, main, section, .button-group {
     display: grid;
     gap: var(--gap);
 }
-body { grid-template-rows: 5fr 41fr }
-header { grid-template-rows: 17fr 24fr } /* approximation to match heigth of buttons under main */
-main { grid-template-rows: 8fr 8fr 8fr 17fr }
-section:not(.spells) { grid-template-rows: 1fr 3fr }
-section.spells { grid-template-rows: 2fr 15fr }
+header { grid-template-rows: auto 6vh }
+section { grid-template-rows: 4vh auto }
+.alignments .button-group, .verbs .button-group, .nouns .button-group { grid-template-rows: repeat(2, 6vh) }
+.spells .button-group { grid-template-rows: repeat(5, 6vh) }
 header .button-group { grid-template-columns: repeat(4, 1fr) }
 .alignments .button-group, .spells .button-group { grid-template-columns: repeat(2, 1fr) }
 .verbs .button-group, .nouns .button-group { grid-template-columns: repeat(3, 1fr) }
@@ -149,22 +157,17 @@ button.inactive:not(.blind) {
 button.inactive:not(.blind) img { filter: var(--inactive-filter) !important }
 button img { filter: var(--filter) }
 
-@media (min-width: calc(2 * 333px)) {
-    /* SIZING AND SPACING */
-    h1, h2 { margin: .25rem 0 }
-
+@media (orientation: landscape) {
     /* DISPLAY */
-    body {
-        grid-template-rows: auto 85%;
-        margin: 0 auto;
-        max-width: calc(3 * 333px);
-        max-height: 499px;
-    }
-    header { grid-template-rows: 46% auto }
-    main { display: flex }
-    section {
-        flex: 1;
-        grid-template-rows: 6% auto !important;
-    }
+    header { grid-template-rows: auto 7.25vh }
+    section { grid-template-rows: 5vh auto }
+    .alignments .button-group { grid-template-rows: repeat(4, 1fr) }
+    .verbs .button-group, .nouns .button-group { grid-template-rows: auto }
+    .spells .button-group { grid-template-rows: repeat(10, 7.25vh) }
+    main { grid-template-columns: repeat(4, 1fr) }
     main .button-group { grid-template-columns: 1fr !important }
+}
+
+@media (min-height: calc(2 * 333px)) {
+    body { font-size: clamp(1rem, 2.375cqh, 4rem) }
 }
