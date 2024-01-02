@@ -169,5 +169,5 @@ button img { filter: var(--filter) }
 }
 
 @media (min-height: calc(2 * 333px)) {
-    body { font-size: clamp(1rem, 2.375cqh, 4rem) }
+    body { font-size: clamp(1rem, 2.4cqh, 4rem) }
 }
