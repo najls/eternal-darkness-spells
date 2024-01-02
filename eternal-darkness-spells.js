@@ -49,12 +49,8 @@ document.getElementById('reset').addEventListener('click', resetTable);
 
 Array.from(entities).forEach(entity => {
     entity.addEventListener('click', function() {
-        /* if pargon was selected no deselection is necessary as pargon can be used with other nouns */
-        if (this.id === 'pargon') {
-            this.classList.toggle('selected');
-        }
         /* if a spell was clicked */
-        else if (this.dataset.type === 'spell') {
+        if (this.dataset.type === 'spell') {
             /* if spell was deselected reset table except for alignment */
             if (!this.classList.toggle('selected')) {
                 resetTable(false);
@@ -81,10 +77,8 @@ Array.from(entities).forEach(entity => {
             deselect(this.dataset.type, this);
         }
         /* if any entity was deselected */
-        else {
-            if (this.dataset.type === 'alignment') { /* reset alignment color */
-                document.body.className = 'unaligned';
-            }
+        else if (this.dataset.type === 'alignment') { /* reset alignment color */
+            document.body.className = 'unaligned';
         }
         deselect('spell');
         toggleInactive();
