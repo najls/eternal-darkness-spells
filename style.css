@@ -67,10 +67,8 @@ html, body, h1, h2 { margin: 0 }
 body, main { padding: var(--gap) }
 button { padding: 4px }
 img {
-    display: inline;
     height: 1em;
     margin-right: .25em;
-    vertical-align: top;
 }
 
 /* STYLING */
@@ -86,6 +84,7 @@ button {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+button > * { vertical-align: middle }
 .display-none { display: none }
 .name:not(.display-none) + .translation::before { content: ' (' }
 .name:not(.display-none) + .translation::after { content: ')' }
