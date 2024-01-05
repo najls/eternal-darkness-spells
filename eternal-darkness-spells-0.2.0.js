@@ -34,11 +34,7 @@ Array.from(entities).forEach(entity => {
             }
             /* if any other entity was selected */
             else {
-                if (this.dataset.type === 'alignment') {
-                    document.body.className = this.id; /* set alignment color */
-                    deselect('alignment', this);
-                    changeActive('alignment', this);
-                }
+                if (this.dataset.type === 'alignment') setAlignment();
                 let selected = document.getElementsByClassName('rune selected');
                 spells.forEach(spell => {
                     /* if selected contains all required runes for the spell */
@@ -51,7 +47,7 @@ Array.from(entities).forEach(entity => {
         /* if a spell was deselected */
         else if (this.dataset.type === 'spell') { }
         /* if an alignment was deselected */
-        else if (this.dataset.type === 'alignment') document.body.className = 'unaligned'; /* reset alignment color */
+        else if (this.dataset.type === 'alignment') setAlignment();
         /* if any other entity was deselected */
         else { }
     });
@@ -71,6 +67,28 @@ function changeActive(type, except) {
             entity.isSameNode(except) ? entity.classList.remove('inactive') : entity.classList.add('inactive');
         }
     });
+}
+
+function setAlignment() {
+    let alignments = [];
+    Array.from(document.querySelectorAll("[data-type='alignment'].selected")).forEach(alignment => {
+        alignments.push(alignment.id);
+    });
+    if (alignments.includes('mantorok')) document.body.className = 'mantorok';
+    else {
+        switch (alignments.length) {
+            case 1:
+                document.body.className = alignments[0];
+                break;
+            case 2:
+                if (['chatturgha', 'ulyaoth'].every(value => alignments.includes(value))) document.body.className = 'ulyaoth';
+                if (['ulyaoth', 'xellotath'].every(value => alignments.includes(value))) document.body.className = 'xellotath';
+                if (['xellotath', 'chatturgha'].every(value => alignments.includes(value))) document.body.className = 'chatturgha';
+                break;
+            default:
+                document.body.className = 'unaligned';
+        }
+    }
 }
 
 function toggleDisplay(e) {
