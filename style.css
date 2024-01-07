@@ -113,32 +113,40 @@ body, button {
     background-color: var(--background-color);
     color: var(--color);
 }
-#chatturgha, .chatturgha button.selected { color: var(--chatturgha-color) }
-#chatturgha img, .chatturgha button.selected img { filter: var(--chatturgha-filter) }
-#ulyaoth, .ulyaoth button.selected { color: var(--ulyaoth-color) }
-#ulyaoth img, .ulyaoth button.selected img { filter: var(--ulyaoth-filter) }
-#xellotath, .xellotath button.selected { color: var(--xellotath-color) }
-#xellotath img, .xellotath button.selected img { filter: var(--xellotath-filter) }
-#mantorok, .mantorok button.selected { color: var(--mantorok-color) }
-#mantorok img, .mantorok button.selected img { filter: var(--mantorok-filter) }
-.unaligned button.selected { color: var(--unaligned-color) }
-.unaligned button.selected img { filter: var(--unaligned-filter) }
+#chatturgha { color: var(--chatturgha-color) }
+#chatturgha img { filter: var(--chatturgha-filter) }
+#ulyaoth { color: var(--ulyaoth-color) }
+#ulyaoth img { filter: var(--ulyaoth-filter) }
+#xellotath { color: var(--xellotath-color) }
+#xellotath img { filter: var(--xellotath-filter) }
+#mantorok { color: var(--mantorok-color) }
+#mantorok img { filter: var(--mantorok-filter) }
+.unaligned button.selected { color: var(--unaligned-color) !important }
+.unaligned button.selected img { filter: var(--unaligned-filter) !important }
 .chatturgha button.selected {
+    color: var(--chatturgha-color) !important;
     background-color: var(--chatturgha-background-color);
     border-color: var(--chatturgha-color);
 }
+.chatturgha button.selected img { filter: var(--chatturgha-filter) !important }
 .ulyaoth button.selected {
+    color: var(--ulyaoth-color) !important;
     background-color: var(--ulyaoth-background-color);
     border-color: var(--ulyaoth-color);
 }
+.ulyaoth button.selected img { filter: var(--ulyaoth-filter) !important }
 .xellotath button.selected {
+    color: var(--xellotath-color) !important;
     background-color: var(--xellotath-background-color);
     border-color: var(--xellotath-color);
 }
+.xellotath button.selected img { filter: var(--xellotath-filter) !important }
 .mantorok button.selected {
+    color: var(--mantorok-color) !important;
     background-color: var(--mantorok-background-color);
     border-color: var(--mantorok-color);
 }
+.mantorok button.selected img { filter: var(--mantorok-filter) !important }
 .unaligned button.selected {
     background-color: var(--unaligned-background-color);
     border-color: var(--unaligned-color);
