@@ -23,7 +23,7 @@ Array.from(entities).forEach(entity => {
             if (this.dataset.type === 'spell') {
                 showSpell(this);
                 changeActive('spell', this);
-                deselect('spell', this);
+                deselectAll('spell', this);
             }
             /* if any other entity except for pargon was selected */
             else if (this.id !== 'pargon') {
@@ -36,7 +36,7 @@ Array.from(entities).forEach(entity => {
             if (document.getElementsByClassName('spell selected').length > 0) {
                 showSpell(this);
                 changeActive('spell', this);
-                deselect('spell');
+                deselectAll('spell');
                 select(this);
             }
             else resetTable(false);
@@ -54,7 +54,7 @@ function updateSelected() {
     clearInactive('verb');
     clearInactive('noun');
     clearInactive('spell');
-    deselect('spell');
+    deselectAll('spell');
     spells.forEach(spell => {
         /* if selected contains all required runes for the spell */
         if (spell.slice(1).every(value => Array.from(selected).includes(document.getElementById(value)))) {
@@ -70,17 +70,25 @@ function showSpell(entity) {
                 let rune = document.getElementById(spell[i]);
                 rune.classList.add('selected');
                 changeActive(rune.dataset.type, rune);
-                deselect(rune.dataset.type, rune);
+                deselectAll(rune.dataset.type, rune);
             }
         }
     });
+    if (entity.id === 'summon') {
+        deselect(document.getElementById('mantorok'));
+        setAlignment();
+    }
 }
 
 function select(entity) {
     entity.classList.add('selected');
 }
 
-function deselect(type, except) {
+function deselect(entity) {
+    entity.classList.remove('selected');
+}
+
+function deselectAll(type, except) {
     Array.from(entities).forEach(entity => {
         if (entity.dataset.type === type && !entity.isSameNode(except)) {
             entity.classList.remove('selected');
@@ -107,7 +115,13 @@ function setAlignment() {
     Array.from(document.querySelectorAll("[data-type='alignment'].selected")).forEach(alignment => {
         alignments.push(alignment.id);
     });
-    if (alignments.includes('mantorok')) document.body.className = 'mantorok';
+    if (alignments.includes('mantorok')) {
+        let summon = document.getElementById('summon');
+        document.body.className = 'mantorok';
+        updateSelected();
+        deselect(summon);
+        summon.classList.add('unavailable');
+    }
     else {
         switch (alignments.length) {
             case 1:
@@ -121,13 +135,14 @@ function setAlignment() {
             default:
                 document.body.className = 'unaligned';
         }
+        document.getElementById('summon').classList.remove('unavailable');
     }
 }
 
 function resetTable(resetAlignment = true) {
     Array.from(entities).forEach(entity => {
         if (!(entity.dataset.type === 'alignment' && !resetAlignment)) {
-            entity.classList.remove('inactive', 'selected', 'blind');
+            entity.classList.remove('inactive', 'unavailable', 'selected', 'blind');
         }
     });
     if (resetAlignment) document.body.className = 'unaligned';
