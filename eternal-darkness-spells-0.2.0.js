@@ -152,6 +152,10 @@ function selectSpells() {
         mantorok.classList.add('unavailable');
         setAlignment();
     }
+    else {
+        mantorok.classList.remove('unavailable');
+        setAlignment();
+    }
 }
 
 function select(entity) {
