@@ -16,7 +16,7 @@ document.getElementById('name').addEventListener('click', toggleDisplay);
 document.getElementById('translate').addEventListener('click', toggleDisplay);
 document.getElementById('reset').addEventListener('click', resetTable);
 
-var add = true;
+var addMode = false;
 
 Array.from(entities).forEach(entity => {
     entity.addEventListener('click', function() {
@@ -25,12 +25,17 @@ Array.from(entities).forEach(entity => {
             /* if spell is being deselected */
             if (this.classList.contains('selected')) {
                 deselectSpell(this);
+                // if (!addMode) resetTable(false);
             }
             else selectRunes(this);
         }
         /* if a rune has been clicked */
         else {
             this.classList.toggle('selected');
+            if (!addMode) {
+                if (this.classList.contains('selected')) deselectAll(this.dataset.type, this);
+                // else clearInactive(this.dataset.type);
+            }
             if (this.dataset.type === 'alignment') setAlignment();
         }
         selectSpells();
@@ -72,7 +77,9 @@ function selectRunes(entity) {
         setAlignment();
     }
     spells[entity.id].forEach(rune => {
-        document.getElementById(rune).classList.add('selected');
+        let elem = document.getElementById(rune);
+        elem.classList.add('selected');
+        if (!addMode) deselectAll(elem.dataset.type, elem);
     });
     // spells.forEach(spell => {
     //     if (spell[0] === entity.id) {
@@ -100,6 +107,7 @@ function selectRunes(entity) {
 function deselectSpell(entity) {
     /* deselect spell */
     deselect(entity);
+    // if (!addMode) clearInactive('spell');
     /* deselect both runes of deselected spell */
     spells[entity.id].forEach(rune => { deselect(document.getElementById(rune)); });
     /* reselect runes from other selected spells */
@@ -136,13 +144,42 @@ function deselectSpell(entity) {
 }
 
 function selectSpells() {
-    let selectedRunes = document.getElementsByClassName('rune selected');
+    let selectedRunes = document.querySelectorAll("[data-type='verb'].selected, [data-type='noun'].selected");
     deselectAll('spell');
-    for (const [spell, runes] of Object.entries(spells)) {
-        /* if selectedRunes contains all required runes for the spell */
-        if (runes.every(rune => Array.from(selectedRunes).includes(document.getElementById(rune)))) {
-            if (!document.getElementById(spell).classList.contains('unavailable')) {
-                document.getElementById(spell).classList.add('selected');
+    if (!addMode) {
+        Array.from(selectedRunes).forEach(rune => setInactiveAll(rune.dataset.type, rune))
+        if (selectedRunes.length === 1) selectedRunes[0].dataset.type === 'verb' ? setInactiveAll('noun') : setInactiveAll('verb');
+        setInactiveAll('spell');
+        for (const [spell, runes] of Object.entries(spells)) {
+            if (Array.from(selectedRunes).every(rune => runes.includes(rune.id))) {
+                runes.forEach(rune => document.getElementById(rune).classList.remove('inactive'));
+                document.getElementById(spell).classList.remove('inactive');
+                if (selectedRunes.length === 2) select(document.getElementById(spell));
+                if (document.body.className === 'mantorok') {
+                    if (Array.from(selectedRunes).includes(document.getElementById('tier'))) setInactive(document.getElementById('aretak'));
+                    else if (Array.from(selectedRunes).includes(document.getElementById('aretak'))) setInactive(document.getElementById('tier'));
+                }
+            }
+        }
+
+        // clearInactive('spell');
+        // if (selectRunes.length === 1) {
+        //     for (const [spell, runes] of Object.entries(spells)) {
+        //         /* if selectedRunes contains all required runes for the spell */
+        //         if (runes.every(rune => Array.from(selectedRunes).includes(document.getElementById(rune)))) {
+        //             let elem = document.getElementById(spell)
+        //             if (!elem.classList.contains('unavailable')) select(elem);
+        //             if (!addMode) setInactiveAll('spell', elem);
+        //         }
+        //     }
+        // }
+    }
+    else {
+        for (const [spell, runes] of Object.entries(spells)) {
+            /* if selectedRunes contains all required runes for the spell */
+            if (runes.every(rune => Array.from(selectedRunes).includes(document.getElementById(rune)))) {
+                let elem = document.getElementById(spell);
+                if (!elem.classList.contains('unavailable')) select(elem);
             }
         }
     }
@@ -150,6 +187,7 @@ function selectSpells() {
         let mantorok = document.getElementById('mantorok');
         deselect(mantorok);
         mantorok.classList.add('unavailable');
+        // if (!addMode) clearInactive('alignment');
         setAlignment();
     }
     else {
@@ -172,7 +210,11 @@ function deselectAll(type, except) {
     });
 }
 
-function changeActive(type, except) {
+function setInactive(entity) {
+    entity.classList.add('inactive');
+}
+
+function setInactiveAll(type, except) {
     Array.from(entities).forEach(entity => {
         if (entity.dataset.type === type) {
             entity.isSameNode(except) ? entity.classList.remove('inactive') : entity.classList.add('inactive');
@@ -190,6 +232,7 @@ function setAlignment() {
     let alignments = [];
     let summon = document.getElementById('summon');
     Array.from(document.querySelectorAll("[data-type='alignment'].selected")).forEach(alignment => {
+        if (!addMode) setInactiveAll('alignment', alignment);
         alignments.push(alignment.id);
     });
     if (alignments.includes('mantorok')) {
@@ -209,6 +252,7 @@ function setAlignment() {
                 break;
             default:
                 document.body.className = 'unaligned';
+                if (!addMode) clearInactive('alignment');
         }
         summon.classList.remove('unavailable');
     }
