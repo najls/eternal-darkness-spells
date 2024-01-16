@@ -11,6 +11,7 @@ const spells = {
     'bind': ['bankorok', 'aretak']
 };
 const entities = document.querySelectorAll('.rune, .spell');
+const pargon = document.getElementById('pargon');
 
 document.getElementById('name').addEventListener('click', toggleDisplay);
 document.getElementById('translate').addEventListener('click', toggleDisplay);
@@ -123,6 +124,8 @@ function deselectSpell(entity) {
         /* deselect both */
         spells[entity.id].forEach(rune => { deselect(document.getElementById(rune)); });
     }
+    /* if only pargon remains we deselect it as well */
+    if (document.querySelectorAll("[data-type='verb'].selected, [data-type='noun'].selected").length === 0) deselect(pargon);
 
     // spells.forEach(spell => {
     //     if (spell[0] === entity.id) {
@@ -147,18 +150,22 @@ function selectSpells() {
     let selectedRunes = document.querySelectorAll("[data-type='verb'].selected, [data-type='noun'].selected");
     deselectAll('spell');
     if (!addMode) {
-        Array.from(selectedRunes).forEach(rune => setInactiveAll(rune.dataset.type, rune))
-        if (selectedRunes.length === 1) selectedRunes[0].dataset.type === 'verb' ? setInactiveAll('noun') : setInactiveAll('verb');
+        if (document.body.className === 'unaligned') setInactiveAll('alignment');
+        if (!pargon.classList.contains('selected')) setInactive(pargon);
+        else clearInactive('pargon');
         setInactiveAll('spell');
+        Array.from(selectedRunes).forEach(rune => setInactiveAll(rune.dataset.type, rune));
+        if (selectedRunes.length === 1) selectedRunes[0].dataset.type === 'verb' ? setInactiveAll('noun') : setInactiveAll('verb');
         for (const [spell, runes] of Object.entries(spells)) {
+            /* The binding of Mantorok has weakened it, and it can no longer fuel incantations of this kind. */
+            if (document.body.className === 'mantorok' && spell === 'summon') continue;
+            /* if the spell includes all selected runes (one or two) */
             if (Array.from(selectedRunes).every(rune => runes.includes(rune.id))) {
+                clearInactive('alignment');
+                clearInactive('pargon');
                 runes.forEach(rune => document.getElementById(rune).classList.remove('inactive'));
                 document.getElementById(spell).classList.remove('inactive');
                 if (selectedRunes.length === 2) select(document.getElementById(spell));
-                if (document.body.className === 'mantorok') {
-                    if (Array.from(selectedRunes).includes(document.getElementById('tier'))) setInactive(document.getElementById('aretak'));
-                    else if (Array.from(selectedRunes).includes(document.getElementById('aretak'))) setInactive(document.getElementById('tier'));
-                }
             }
         }
 
@@ -176,13 +183,14 @@ function selectSpells() {
     }
     else {
         for (const [spell, runes] of Object.entries(spells)) {
-            /* if selectedRunes contains all required runes for the spell */
+            /* if selected include all required runes for the spell */
             if (runes.every(rune => Array.from(selectedRunes).includes(document.getElementById(rune)))) {
                 let elem = document.getElementById(spell);
                 if (!elem.classList.contains('unavailable')) select(elem);
             }
         }
     }
+    /* The Mantorok rune cannot be used in Summoning magicks. */
     if (document.getElementById('summon').classList.contains('selected')) {
         let mantorok = document.getElementById('mantorok');
         deselect(mantorok);
@@ -252,7 +260,7 @@ function setAlignment() {
                 break;
             default:
                 document.body.className = 'unaligned';
-                if (!addMode) clearInactive('alignment');
+                // if (!addMode) clearInactive('alignment');
         }
         summon.classList.remove('unavailable');
     }
