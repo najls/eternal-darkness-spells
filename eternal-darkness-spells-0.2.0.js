@@ -11,148 +11,56 @@ const spells = {
     'bind': ['bankorok', 'aretak']
 };
 const entities = document.querySelectorAll('.rune, .spell');
+const mantorok = document.getElementById('mantorok');
 const pargon = document.getElementById('pargon');
+const summon = document.getElementById('summon');
 
 document.getElementById('name').addEventListener('click', toggleDisplay);
 document.getElementById('translate').addEventListener('click', toggleDisplay);
 document.getElementById('reset').addEventListener('click', resetTable);
 
-var addMode = true;
+var deselectOther = true;
 
 Array.from(entities).forEach(entity => {
     entity.addEventListener('click', function() {
-        /* if a spell has been clicked */
-        if (this.dataset.type === 'spell') {
-            /* if spell is being deselected */
-            if (this.classList.contains('selected')) {
-                // deselectSpell(this);
-                // if (!addMode) resetTable(false);
-            }
-            selectRunes(this);
-        }
-        /* if a rune has been clicked */
-        else {
-            this.classList.toggle('selected');
-            if (!addMode) {
-                if (this.classList.contains('selected')) deselectAll(this.dataset.type, this);
-                // else clearInactive(this.dataset.type);
-            }
+        if (this.dataset.type === 'spell') selectRunes(this);
+        else { /* rune or alignment */
+            if (this.classList.toggle('selected'))
+                if (deselectOther) deselectAll(this.dataset.type, this);
             if (this.dataset.type === 'alignment') setAlignment();
         }
         selectSpells();
-
-        // if (this.classList.toggle('selected')) {
-            /* if a spell was selected */
-            // if (this.dataset.type === 'spell') {
-                // selectRunes(this);
-                // changeActive('spell', this);
-                // deselectAll('spell', this);
-            // }
-            /* if any other entity except for pargon was selected */
-        //     else if (this.id !== 'pargon') {
-        //         if (this.dataset.type === 'alignment') setAlignment();
-        //         else selectSpells();
-        //     }
-        // }
-        /* if a spell was deselected */
-        // else if (this.dataset.type === 'spell') {
-        //     if (document.getElementsByClassName('spell selected').length > 0) {
-        //         selectRunes(this);
-        //         changeActive('spell', this);
-        //         deselectAll('spell');
-        //         select(this);
-        //     }
-        //     else resetTable(false);
-        // }
-        /* if an alignment was deselected */
-        // else if (this.dataset.type === 'alignment') setAlignment();
-        /* if any other entity except for pargon was deselected */
-        // else if (this.id !== 'pargon') selectSpells();
     });
 });
 
 function selectRunes(entity) {
+    /* if inactive summon spell is selected */
     if (entity.classList.contains('unavailable')) {
         entity.classList.remove('unavailable');
-        deselect(document.getElementById('mantorok'));
+        mantorok.classList.remove('selected');
         setAlignment();
     }
     spells[entity.id].forEach(rune => {
         let elem = document.getElementById(rune);
-        entity.classList.contains('selected') ? elem.classList.remove('selected') : elem.classList.add('selected');
-        if (!addMode) deselectAll(elem.dataset.type, elem);
+        /* if spell is being deselected */
+        if (entity.classList.contains('selected')) {
+            elem.classList.remove('selected');
+            /* if we're not in add mode and only pargon remains we deselect it as well */
+            if (deselectOther && document.querySelectorAll("[data-type='verb'].selected, [data-type='noun'].selected").length === 0)
+                pargon.classList.remove('selected');
+        }
+        else elem.classList.add('selected');
+        if (deselectOther) deselectAll(elem.dataset.type, elem);
     });
-    // spells.forEach(spell => {
-    //     if (spell[0] === entity.id) {
-    //         for (let i = 1; i < spell.length; i++) {
-    //             let rune = document.getElementById(spell[i]);
-                // rune.classList.add('selected');
-                // changeActive(rune.dataset.type, rune);
-                // deselectAll(rune.dataset.type, rune);
-    //         }
-    //     }
-    // });
-    // let mantorok = document.getElementById('mantorok');
-    // if (entity.id === 'summon') {
-    //     deselect(mantorok);
-    //     mantorok.classList.add('unavailable');
-    //     setAlignment();
-    // }
-    // else mantorok.classList.remove('unavailable');
-}
-
-/* when multiple spells are selected, a deselected spell may persist if both of
- * its runes are present in other spells. in that case we deselect both runes
- * to give the user some feedback.
- */
-function deselectSpell(entity) {
-    /* deselect spell */
-    deselect(entity);
-    // if (!addMode) clearInactive('spell');
-    /* deselect both runes of deselected spell */
-    spells[entity.id].forEach(rune => { deselect(document.getElementById(rune)); });
-    /* reselect runes from other selected spells */
-    let selectedSpells = document.getElementsByClassName('spell selected');
-    Array.from(selectedSpells).forEach(spell => {
-        spells[spell.id].forEach(rune => {
-            document.getElementById(rune).classList.add('selected');
-        });
-    });
-    /* if both runes from deselected spell were reselected */
-    let selectedRunes = document.getElementsByClassName('rune selected');
-    if (spells[entity.id].every(rune => Array.from(selectedRunes).includes(document.getElementById(rune)))) {
-        /* deselect both */
-        spells[entity.id].forEach(rune => { deselect(document.getElementById(rune)); });
-    }
-    /* if only pargon remains we deselect it as well */
-    if (document.querySelectorAll("[data-type='verb'].selected, [data-type='noun'].selected").length === 0) deselect(pargon);
-
-    // spells.forEach(spell => {
-    //     if (spell[0] === entity.id) {
-    //         for (let i = 1; i < spell.length; i++) {
-    //             let rune = document.getElementById(spell[i]);
-                // rune.classList.add('selected');
-                // changeActive(rune.dataset.type, rune);
-                // deselectAll(rune.dataset.type, rune);
-    //         }
-    //     }
-    // });
-    // let mantorok = document.getElementById('mantorok');
-    // if (entity.id === 'summon') {
-    //     deselect(mantorok);
-    //     mantorok.classList.add('unavailable');
-    //     setAlignment();
-    // }
-    // else mantorok.classList.remove('unavailable');
 }
 
 function selectSpells() {
     let selectedRunes = document.querySelectorAll("[data-type='verb'].selected, [data-type='noun'].selected");
     deselectAll('spell');
-    if (!addMode) {
+    if (deselectOther) {
         if (document.body.className === 'unaligned') setInactiveAll('alignment');
-        if (!pargon.classList.contains('selected')) setInactive(pargon);
-        else clearInactive('pargon');
+        if (!pargon.classList.contains('selected')) pargon.classList.add('inactive');
+        else clearInactiveAll('pargon');
         setInactiveAll('spell');
         Array.from(selectedRunes).forEach(rune => setInactiveAll(rune.dataset.type, rune));
         if (selectedRunes.length === 1) selectedRunes[0].dataset.type === 'verb' ? setInactiveAll('noun') : setInactiveAll('verb');
@@ -161,41 +69,27 @@ function selectSpells() {
             if (document.body.className === 'mantorok' && spell === 'summon') continue;
             /* if the spell includes all selected runes (one or two) */
             if (Array.from(selectedRunes).every(rune => runes.includes(rune.id))) {
-                clearInactive('alignment');
-                clearInactive('pargon');
+                clearInactiveAll('alignment');
+                clearInactiveAll('pargon');
                 runes.forEach(rune => document.getElementById(rune).classList.remove('inactive'));
                 document.getElementById(spell).classList.remove('inactive');
-                if (selectedRunes.length === 2) select(document.getElementById(spell));
+                if (selectedRunes.length === 2) document.getElementById(spell).classList.add('selected');
             }
         }
-
-        // clearInactive('spell');
-        // if (selectRunes.length === 1) {
-        //     for (const [spell, runes] of Object.entries(spells)) {
-        //         /* if selectedRunes contains all required runes for the spell */
-        //         if (runes.every(rune => Array.from(selectedRunes).includes(document.getElementById(rune)))) {
-        //             let elem = document.getElementById(spell)
-        //             if (!elem.classList.contains('unavailable')) select(elem);
-        //             if (!addMode) setInactiveAll('spell', elem);
-        //         }
-        //     }
-        // }
     }
     else {
         for (const [spell, runes] of Object.entries(spells)) {
             /* if selected include all required runes for the spell */
             if (runes.every(rune => Array.from(selectedRunes).includes(document.getElementById(rune)))) {
                 let elem = document.getElementById(spell);
-                if (!elem.classList.contains('unavailable')) select(elem);
+                if (!elem.classList.contains('unavailable')) elem.classList.add('selected');
             }
         }
     }
     /* The Mantorok rune cannot be used in Summoning magicks. */
-    if (document.getElementById('summon').classList.contains('selected')) {
-        let mantorok = document.getElementById('mantorok');
-        deselect(mantorok);
+    if (summon.classList.contains('selected')) {
+        mantorok.classList.remove('selected');
         mantorok.classList.add('unavailable');
-        // if (!addMode) clearInactive('alignment');
         setAlignment();
     }
     else {
@@ -204,33 +98,20 @@ function selectSpells() {
     }
 }
 
-function select(entity) {
-    entity.classList.add('selected');
-}
-
-function deselect(entity) {
-    entity.classList.remove('selected');
-}
-
 function deselectAll(type, except) {
     Array.from(entities).forEach(entity => {
-        if (entity.dataset.type === type && !entity.isSameNode(except)) deselect(entity);
+        if (entity.dataset.type === type && !entity.isSameNode(except)) entity.classList.remove('selected');
     });
-}
-
-function setInactive(entity) {
-    entity.classList.add('inactive');
 }
 
 function setInactiveAll(type, except) {
     Array.from(entities).forEach(entity => {
-        if (entity.dataset.type === type) {
+        if (entity.dataset.type === type)
             entity.isSameNode(except) ? entity.classList.remove('inactive') : entity.classList.add('inactive');
-        }
     });
 }
 
-function clearInactive(type) {
+function clearInactiveAll(type) {
     Array.from(entities).forEach(entity => {
         if (entity.dataset.type === type) entity.classList.remove('inactive');
     });
@@ -238,9 +119,8 @@ function clearInactive(type) {
 
 function setAlignment() {
     let alignments = [];
-    let summon = document.getElementById('summon');
     Array.from(document.querySelectorAll("[data-type='alignment'].selected")).forEach(alignment => {
-        if (!addMode) setInactiveAll('alignment', alignment);
+        if (deselectOther) setInactiveAll('alignment', alignment);
         alignments.push(alignment.id);
     });
     if (alignments.includes('mantorok')) {
@@ -260,7 +140,6 @@ function setAlignment() {
                 break;
             default:
                 document.body.className = 'unaligned';
-                // if (!addMode) clearInactive('alignment');
         }
         summon.classList.remove('unavailable');
     }
@@ -268,9 +147,8 @@ function setAlignment() {
 
 function resetTable(resetAlignment = true) {
     Array.from(entities).forEach(entity => {
-        if (!(entity.dataset.type === 'alignment' && !resetAlignment)) {
+        if (!(entity.dataset.type === 'alignment' && !resetAlignment))
             entity.classList.remove('inactive', 'unavailable', 'selected', 'blind');
-        }
     });
     if (resetAlignment) document.body.className = 'unaligned';
 }
