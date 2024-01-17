@@ -17,7 +17,7 @@ document.getElementById('name').addEventListener('click', toggleDisplay);
 document.getElementById('translate').addEventListener('click', toggleDisplay);
 document.getElementById('reset').addEventListener('click', resetTable);
 
-var addMode = false;
+var addMode = true;
 
 Array.from(entities).forEach(entity => {
     entity.addEventListener('click', function() {
@@ -25,10 +25,10 @@ Array.from(entities).forEach(entity => {
         if (this.dataset.type === 'spell') {
             /* if spell is being deselected */
             if (this.classList.contains('selected')) {
-                deselectSpell(this);
+                // deselectSpell(this);
                 // if (!addMode) resetTable(false);
             }
-            else selectRunes(this);
+            selectRunes(this);
         }
         /* if a rune has been clicked */
         else {
@@ -79,7 +79,7 @@ function selectRunes(entity) {
     }
     spells[entity.id].forEach(rune => {
         let elem = document.getElementById(rune);
-        elem.classList.add('selected');
+        entity.classList.contains('selected') ? elem.classList.remove('selected') : elem.classList.add('selected');
         if (!addMode) deselectAll(elem.dataset.type, elem);
     });
     // spells.forEach(spell => {
