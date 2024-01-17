@@ -17,6 +17,7 @@ const summon = document.getElementById('summon');
 
 document.getElementById('name').addEventListener('click', toggleDisplay);
 document.getElementById('translate').addEventListener('click', toggleDisplay);
+document.getElementById('add').addEventListener('click', toggleDeselectOther);
 document.getElementById('reset').addEventListener('click', resetTable);
 
 var deselectOther = true;
@@ -159,4 +160,19 @@ function toggleDisplay(e) {
     Array.from(targetElements).forEach(elem => {
         elem.classList.toggle('display-none');
     });
+}
+
+function toggleDeselectOther(e) {
+    e.target.classList.toggle('active');
+    deselectOther = deselectOther === false;
+    if (deselectOther) {
+        let spell = document.getElementsByClassName('spell selected')[0];
+        if (spell) {
+            resetTable(false);
+            setAlignment();
+            selectRunes(spell);
+            selectSpells();
+        }
+    }
+    else Array.from(entities).forEach(entity => entity.classList.remove('inactive'));
 }

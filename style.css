@@ -104,7 +104,7 @@ header { grid-template-rows: auto 6dvh }
 section { grid-template-rows: 4dvh auto }
 .alignments .button-group, .verbs .button-group, .nouns .button-group { grid-template-rows: repeat(2, 6dvh) }
 .spells .button-group { grid-template-rows: repeat(5, 6dvh) }
-header .button-group { grid-template-columns: repeat(4, 1fr) }
+header .button-group { grid-template-columns: repeat(5, 1fr) }
 .alignments .button-group, .spells .button-group { grid-template-columns: repeat(2, 1fr) }
 .verbs .button-group, .nouns .button-group { grid-template-columns: repeat(3, 1fr) }
 
