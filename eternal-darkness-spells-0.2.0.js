@@ -101,14 +101,14 @@ function selectSpells() {
 
 function deselectAll(type, except) {
     Array.from(entities).forEach(entity => {
-        if (entity.dataset.type === type && !entity.isSameNode(except)) entity.classList.remove('selected');
+        if (entity.dataset.type === type && entity !== except) entity.classList.remove('selected');
     });
 }
 
 function setInactiveAll(type, except) {
     Array.from(entities).forEach(entity => {
         if (entity.dataset.type === type)
-            entity.isSameNode(except) ? entity.classList.remove('inactive') : entity.classList.add('inactive');
+            entity === except ? entity.classList.remove('inactive') : entity.classList.add('inactive');
     });
 }
 
@@ -146,9 +146,9 @@ function setAlignment() {
     }
 }
 
-function resetTable(resetAlignment = true) {
+function resetTable(resetAlignment = true, resetPargon = true) {
     Array.from(entities).forEach(entity => {
-        if (!(entity.dataset.type === 'alignment' && !resetAlignment))
+        if (!(entity.dataset.type === 'alignment' && !resetAlignment) && !(entity === pargon && !resetPargon))
             entity.classList.remove('inactive', 'unavailable', 'selected', 'blind');
     });
     if (resetAlignment) document.body.className = 'unaligned';
@@ -166,13 +166,30 @@ function toggleDeselectOther(e) {
     e.target.classList.toggle('active');
     deselectOther = deselectOther === false;
     if (deselectOther) {
+        if (document.body.className === 'unaligned') deselectAll('alignment');
+        else {
+            let alignment = document.getElementById(document.body.className);
+            deselectAll('alignment', alignment);
+            setInactiveAll('alignment', alignment);
+        }
         let spell = document.getElementsByClassName('spell selected')[0];
         if (spell) {
-            resetTable(false);
-            setAlignment();
+            resetTable(false, !pargon.classList.contains('selected'));
             selectRunes(spell);
-            selectSpells();
         }
+        else {
+            let verb = document.querySelectorAll("[data-type='verb'].selected")[0];
+            let noun = document.querySelectorAll("[data-type='noun'].selected")[0];
+            if (verb) {
+                deselectAll('verb', verb);
+                setInactiveAll('verb', verb);
+            }
+            if (noun) {
+                deselectAll('noun', noun);
+                setInactiveAll('noun', noun);
+            }
+        }
+        selectSpells();
     }
     else Array.from(entities).forEach(entity => entity.classList.remove('inactive'));
 }
