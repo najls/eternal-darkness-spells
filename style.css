@@ -156,12 +156,12 @@ button.active {
     border-color: var(--unaligned-color);
     color: var(--unaligned-color);
 }
-button.inactive:not(.blind), button.unavailable:not(.blind) {
+button.inactive:not(.conceal), button.unavailable:not(.conceal) {
     background-color: var(--inactive-background-color);
     border-color: var(--inactive-color);
     color: var(--inactive-color) !important;
 }
-button.inactive:not(.blind) img, button.unavailable:not(.blind) img { filter: var(--inactive-filter) !important }
+button.inactive:not(.conceal) img, button.unavailable:not(.conceal) img { filter: var(--inactive-filter) !important }
 button img { filter: var(--filter) }
 
 @media (orientation: landscape) {

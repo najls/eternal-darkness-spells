@@ -18,9 +18,11 @@ const summon = document.getElementById('summon');
 document.getElementById('name').addEventListener('click', toggleDisplay);
 document.getElementById('translate').addEventListener('click', toggleDisplay);
 document.getElementById('add').addEventListener('click', toggleDeselectOther);
+document.getElementById('blind').addEventListener('click', toggleConcealInactive);
 document.getElementById('reset').addEventListener('click', resetTable);
 
 var deselectOther = true;
+var concealInactive = false;
 
 Array.from(entities).forEach(entity => {
     entity.addEventListener('click', function() {
@@ -149,7 +151,7 @@ function setAlignment() {
 function resetTable(resetAlignment = true, resetPargon = true) {
     Array.from(entities).forEach(entity => {
         if (!(entity.dataset.type === 'alignment' && !resetAlignment) && !(entity === pargon && !resetPargon))
-            entity.classList.remove('inactive', 'unavailable', 'selected', 'blind');
+            entity.classList.remove('inactive', 'unavailable', 'selected');
     });
     if (resetAlignment) document.body.className = 'unaligned';
 }
@@ -164,6 +166,7 @@ function toggleDisplay(e) {
 
 function toggleDeselectOther(e) {
     e.target.classList.toggle('active');
+    if (concealInactive) document.getElementById('blind').click();
     deselectOther = deselectOther === false;
     if (deselectOther) {
         if (document.body.className === 'unaligned') deselectAll('alignment');
@@ -192,4 +195,11 @@ function toggleDeselectOther(e) {
         selectSpells();
     }
     else Array.from(entities).forEach(entity => entity.classList.remove('inactive'));
+}
+
+function toggleConcealInactive(e) {
+    e.target.classList.toggle('active');
+    if (!deselectOther) document.getElementById('add').click();
+    concealInactive = concealInactive ? false : true;
+    Array.from(entities).forEach(entity => entity.classList.toggle('conceal'));
 }
