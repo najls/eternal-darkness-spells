@@ -40,14 +40,14 @@
         --xellotath-color: SpringGreen;
         --mantorok-color: Violet;
         --unaligned-color: Khaki;
-        --inactive-color: DimGray;
+        --inactive-color: DarkSlateGray;
         --filter: invert(88%) sepia(27%) saturate(160%) hue-rotate(26deg) brightness(110%) contrast(92%);
         --chatturgha-filter: invert(47%) sepia(76%) saturate(1573%) hue-rotate(331deg) brightness(101%) contrast(104%);
         --ulyaoth-filter: invert(52%) sepia(86%) saturate(2162%) hue-rotate(163deg) brightness(106%) contrast(105%);
         --xellotath-filter: invert(68%) sepia(93%) saturate(917%) hue-rotate(90deg) brightness(101%) contrast(104%);
         --mantorok-filter: invert(64%) sepia(76%) saturate(512%) hue-rotate(246deg) brightness(97%) contrast(92%);
         --unaligned-filter: invert(91%) sepia(21%) saturate(785%) hue-rotate(358deg) brightness(103%) contrast(88%);
-        --inactive-filter: invert(42%) sepia(1%) saturate(1346%) hue-rotate(44deg) brightness(98%) contrast(97%);
+        --inactive-filter: invert(24%) sepia(20%) saturate(796%) hue-rotate(131deg) brightness(97%) contrast(86%);
     }
 }
 
